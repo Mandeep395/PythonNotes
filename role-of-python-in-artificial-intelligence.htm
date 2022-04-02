@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>class RocketLazyLoadScripts{constructor(e){this.triggerEvents=e,this.eventOptions={passive:!0},this.userEventListener=this.triggerListener.bind(this),this.delayedScripts={normal:[],async:[],defer:[]},this.allJQueries=[]}_addUserInteractionListener(e){this.triggerEvents.forEach((t=>window.addEventListener(t,e.userEventListener,e.eventOptions)))}_removeUserInteractionListener(e){this.triggerEvents.forEach((t=>window.removeEventListener(t,e.userEventListener,e.eventOptions)))}triggerListener(){this._removeUserInteractionListener(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this._loadEverythingNow.bind(this)):this._loadEverythingNow()}async _loadEverythingNow(){this._delayEventListeners(),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async),await this._triggerDOMContentLoaded(),await this._triggerWindowLoad(),window.dispatchEvent(new Event("rocket-allScriptsLoaded"))}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach((e=>{e.hasAttribute("src")?e.hasAttribute("async")&&!1!==e.async?this.delayedScripts.async.push(e):e.hasAttribute("defer")&&!1!==e.defer||"module"===e.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(e):this.delayedScripts.normal.push(e):this.delayedScripts.normal.push(e)}))}async _transformScript(e){return await this._requestAnimFrame(),new Promise((t=>{const n=document.createElement("script");let i;[...e.attributes].forEach((e=>{let t=e.nodeName;"type"!==t&&("data-rocket-type"===t&&(t="type",i=e.nodeValue),n.setAttribute(t,e.nodeValue))})),e.hasAttribute("src")&&this._isValidScriptType(i)?(n.addEventListener("load",t),n.addEventListener("error",t)):(n.text=e.text,t()),e.parentNode.replaceChild(n,e)}))}_isValidScriptType(e){return!e||""===e||"string"==typeof e&&["text/javascript","text/x-javascript","text/ecmascript","text/jscript","application/javascript","application/x-javascript","application/ecmascript","application/jscript","module"].includes(e.toLowerCase())}async _loadScriptsFromList(e){const t=e.shift();return t?(await this._transformScript(t),this._loadScriptsFromList(e)):Promise.resolve()}_preloadAllScripts(){var e=document.createDocumentFragment();[...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async].forEach((t=>{const n=t.getAttribute("src");if(n){const t=document.createElement("link");t.href=n,t.rel="preload",t.as="script",e.appendChild(t)}})),document.head.appendChild(e)}_delayEventListeners(){let e={};function t(t,n){!function(t){function n(n){return e[t].eventsToRewrite.indexOf(n)>=0?"rocket-"+n:n}e[t]||(e[t]={originalFunctions:{add:t.addEventListener,remove:t.removeEventListener},eventsToRewrite:[]},t.addEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.add.apply(t,arguments)},t.removeEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.remove.apply(t,arguments)})}(t),e[t].eventsToRewrite.push(n)}function n(e,t){let n=e[t];Object.defineProperty(e,t,{get:()=>n||function(){},set(i){e["rocket"+t]=n=i}})}t(document,"DOMContentLoaded"),t(window,"DOMContentLoaded"),t(window,"load"),t(window,"pageshow"),t(document,"readystatechange"),n(document,"onreadystatechange"),n(window,"onload"),n(window,"onpageshow")}_delayJQueryReady(e){let t=window.jQuery;Object.defineProperty(window,"jQuery",{get:()=>t,set(n){if(n&&n.fn&&!e.allJQueries.includes(n)){n.fn.ready=n.fn.init.prototype.ready=function(t){e.domReadyFired?t.bind(document)(n):document.addEventListener("rocket-DOMContentLoaded",(()=>t.bind(document)(n)))};const t=n.fn.on;n.fn.on=n.fn.init.prototype.on=function(){if(this[0]===window){function e(e){return e.split(" ").map((e=>"load"===e||0===e.indexOf("load.")?"rocket-jquery-load":e)).join(" ")}"string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=e(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach((t=>{delete Object.assign(arguments[0],{[e(t)]:arguments[0][t]})[t]}))}return t.apply(this,arguments),this},e.allJQueries.push(n)}t=n}})}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._requestAnimFrame(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-load")),await this._requestAnimFrame(),window.rocketonload&&window.rocketonload(),await this._requestAnimFrame(),this.allJQueries.forEach((e=>e(window).trigger("rocket-jquery-load"))),window.dispatchEvent(new Event("rocket-pageshow")),await this._requestAnimFrame(),window.rocketonpageshow&&window.rocketonpageshow()}_handleDocumentWrite(){const e=new Map;document.write=document.writeln=function(t){const n=document.currentScript;n||console.error("WPRocket unable to document.write this: "+t);const i=document.createRange(),r=n.parentElement;let a=e.get(n);void 0===a&&(a=n.nextSibling,e.set(n,a));const o=document.createDocumentFragment();i.setStart(o,0),o.appendChild(i.createContextualFragment(t)),r.insertBefore(o,a)}}async _requestAnimFrame(){return new Promise((e=>requestAnimationFrame(e)))}static run(){const e=new RocketLazyLoadScripts(["keydown","mousemove","touchmove","touchstart","touchend","wheel"]);e._addUserInteractionListener(e)}}RocketLazyLoadScripts.run();
+</script>
+	<meta charset="UTF-8">
+	<link rel="profile" href="https://gmpg.org/xfn/11">
+	<meta name='robots' content='max-image-preview:large' />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- This site is optimized with the Yoast SEO Premium plugin v15.5 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>Role of Python in Artificial Intelligence (AI) | Python Machine Learning</title><style id="rocket-critical-css">.screen-reader-text{border:0;clip:rect(1px,1px,1px,1px);-webkit-clip-path:inset(50%);clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;word-wrap:normal!important}.wpcf7 .screen-reader-response{position:absolute;overflow:hidden;clip:rect(1px,1px,1px,1px);clip-path:inset(50%);height:1px;width:1px;margin:-1px;padding:0;border:0;word-wrap:normal!important}.wpcf7 form .wpcf7-response-output{margin:2em 0.5em 1em;padding:0.2em 1em;border:2px solid #00a0d2}.wpcf7 form.init .wpcf7-response-output{display:none}.wpcf7-form-control-wrap{position:relative}.wpcf7 input[type="email"]{direction:ltr}.hidden{display:none}#cookie-banner{padding:1rem;width:100%;text-align:left;position:fixed;bottom:0;left:0;z-index:9}#cookie-banner div{background-color:#0a203e;color:#ebf8ff;border-radius:0;padding:0.9rem 0.75rem;line-height:1;align-items:center;display:inline-flex}#cookie-banner div span:first-child{text-align:left;margin-right:1.5rem;font-weight:400;flex:1 1 auto}#cookie-banner #consent-cookies{font-size:20px;padding:0.25rem .5rem;font-weight:700;display:flex;border-radius:9999px;margin:-15px -10px 15px 0px}.case-study-modal{display:none;position:fixed;z-index:1;padding-top:15%;left:0;top:50px;width:100%;height:100%;overflow:auto;background-color:rgba(0,0,0,0.75)}.case-study-modal .modal-content{background-color:#fefefe;margin:auto;border:1px solid #888;vertical-align:middle;position:relative;z-index:2;max-width:500px;box-sizing:border-box;width:90%;background:#fff;padding:15px 30px;-webkit-border-radius:8px;-moz-border-radius:8px;-o-border-radius:8px;-ms-border-radius:8px;border-radius:8px;-moz-box-shadow:0 0 10px #000;-o-box-shadow:0 0 10px #000;-ms-box-shadow:0 0 10px #000;box-shadow:0 0 10px #000;text-align:left}.case-study-modal .case-study-close{color:#aaaaaa;float:right;font-size:28px;font-weight:bold;position:absolute;top:-10.5px;right:-8.5px;display:block;width:30px;height:30px;text-indent:-9999px;background-size:contain;background-repeat:no-repeat;background-position:center center}.cases-tudy-form{margin:20px 0px}.cases-tudy-form label{font-size:14px}.cases-tudy-form .wpcf7-form-control-wrap .wpcf7-text{width:100%!important;margin:0px 0 20px 0}.cases-tudy-form .wpcf7-form-control.wpcf7-submit{background:none;color:#fff!important;text-transform:capitalize!important;padding:0px!important;font-size:14px!important;letter-spacing:normal;font-weight:600!important;border:none}.inner-coomen .wpcf7-textarea{font-size:15px}.single.single-post #ouibounce-modal .modal{bottom:auto}#ouibounce-modal .modal-body{padding:0px 0px!important}#ouibounce-modal .modal-title{background-color:#fff!important;color:#111732!important}#ouibounce-modal .modal-title h2{color:#04131A;font-weight:600;line-height:1.3em;font-size:28px}#ouibounce-modal .wpcf7-form-control.wpcf7-textarea{height:100px!important}#ouibounce-modal{z-index:999999!important}#ouibounce-modal .modal{background-color:#fff!important;height:600px!important;padding:15px 35px 15px 35px!important;width:600px!important;z-index:1!important;position:absolute!important;margin:auto!important;top:40px!important;right:0!important;bottom:0!important;left:0!important;border-radius:4px!important;-webkit-animation:popin .3s!important;animation:popin .3s!important;overflow:auto!important}#ouibounce-modal .underlay{justify-content:center;align-items:center;background-color:rgba(0,0,0,.8)!important}.popup_main_row .inner-coomen .wpcf7-text,.popup_main_row .inner-coomen .wpcf7-textarea{width:100%!important;margin-bottom:20px;max-width:100%;border:1px solid #818a91!important;background-color:#E7E7E7!important;color:#373a3c!important;vertical-align:middle;-webkit-box-flex:1;margin-left:0;padding:8px 14px!important;border-radius:0px!important}#ouibounce-modal .popup_main_row input.wpcf7-form-control.wpcf7-submit{padding:5px 0px 5px 0px!important;text-decoration:none!important;font-size:16px;font-weight:400;line-height:20px;fill:#fff;border:none!important;color:#fff;background:none;text-transform:capitalize}#ouibounce-modal span.cross{position:absolute;top:0;right:12px;padding:3px 10px}.single-post #content.site-content{display:block}.content_withsidebar_secription p{color:#0a203e;font-size:20px;letter-spacing:0.46px!important;line-height:28px;font-weight:normal!important;margin-bottom:20px}.wplogout-social-sharing{margin:20px 0 20px 20px}.category_drop_shrtcode select#testselectset{width:100%;margin:25px 0px}.sticky-parent a.underline-text{font-size:16px}.recomnde_title{color:#0A203E;font-size:20px;font-weight:bold;line-height:28px;letter-spacing:0.46px;margin:20px 0px}.recomnded_post{color:#0A203E;font-size:16px;font-weight:normal;line-height:24px;letter-spacing:0.37px;margin-bottom:10px}span.share_vai{color:#0A203E;font-size:20px;font-weight:normal;line-height:28px}.detail_container_section_main .detail_content_withsidebar_row{display:flex;flex-wrap:wrap}.detail_container_section_main .content_withsidebar_column1{width:70%}.detail_container_section_main .content_withsidebar_column2{width:30%;padding-top:30%}html{scroll-behavior:smooth}.breadcrumb{color:#2D8E8B!important;margin:20px 0px}.detail_featured_image{background-size:contain;background-position:50%;min-height:450px;background-repeat:no-repeat}.detail_featured_image img{padding:40px 0px}.detail_container_section_main .sticky-column{position:sticky;position:-webkit-sticky;top:100px;scroll-behavior:smooth;box-shadow:0px 8px 20px 0px rgb(123 123 123 / 16%);padding:20px 20px 20px 20px}.detail_container_section_main{padding:60px 0 0 0}.metafield{margin-bottom:20px}.publish_date,.post_read_nam,.breadcrumb,span.post_category_nam a{color:#646464;font-size:16px;letter-spacing:.37px;line-height:24px;text-transform:capitalize}span.post_category_nam a{text-decoration:underline!important}span.post_read_nam:before,span.publish_date:before{content:"• ";color:#646464!important;font-size:20px!important}.content_withsidebar_column2.sticky-parent{padding-left:30px}.dropdown_category_list select{color:#47525d!important;width:50%}select.select_blog_category{box-sizing:border-box;height:42px;border:1px solid #B4B4B4;border-radius:3px;background:#fff;padding:10px}@media (max-width:1023px) and (min-width:768px){.detail_container_section_main .content_withsidebar_column1{width:100%}.detail_container_section_main .content_withsidebar_column2{width:100%;padding-top:0%}}@media (max-width:767px) and (min-width:320px){#ouibounce-modal .modal{width:100%!important}.detail_container_section_main .content_withsidebar_column1{width:100%}.detail_container_section_main .content_withsidebar_column2{width:100%;padding-top:0%}select.select_blog_category{height:38px;width:90%!important;margin-left:10px!important}}@font-face{font-family:"proxima-nova";src:url("https://use.typekit.net/af/98e3f6/000000000000000077359562/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("woff2"),url("https://use.typekit.net/af/98e3f6/000000000000000077359562/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("woff"),url("https://use.typekit.net/af/98e3f6/000000000000000077359562/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("opentype");font-display:swap;font-style:normal;font-weight:700}@font-face{font-family:"proxima-nova";src:url("https://use.typekit.net/af/0758f3/000000000000000077359583/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("woff2"),url("https://use.typekit.net/af/0758f3/000000000000000077359583/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("woff"),url("https://use.typekit.net/af/0758f3/000000000000000077359583/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("opentype");font-display:swap;font-style:normal;font-weight:500}#ouibounce-modal{font-family:'Open Sans',sans-serif;display:none;position:fixed;top:0;left:0;width:100%;height:100%}#ouibounce-modal .underlay{width:100%;height:100%;position:absolute;top:0;left:0;background-color:rgba(0,0,0,.5);-webkit-animation:fadein .5s;animation:fadein .5s}#ouibounce-modal .modal{width:600px;z-index:1;position:absolute;margin:auto;top:100px;right:0;bottom:0;left:0;border-radius:4px;-webkit-animation:popin .3s;animation:popin .3s}#ouibounce-modal .modal-title{font-size:18px;background-color:#252525;color:#fff;padding:10px;margin:0;border-radius:4px 4px 0 0;text-align:center}#ouibounce-modal .modal-body{margin-top:-20px;font-size:.9em}#ouibounce-modal p{color:#344a5f}#ouibounce-modal form{text-align:center;margin-top:35px}#ouibounce-modal form input[type=text]{padding:12px;font-size:1.2em;width:300px;border-radius:4px;border:1px solid #ccc;-webkit-font-smoothing:antialiased}#ouibounce-modal form input[type=submit]{text-transform:uppercase;font-weight:700;padding:12px;font-size:1.1em;border-radius:4px;color:#fff;background-color:#4ab471;border:none;-webkit-font-smoothing:antialiased}#ouibounce-modal form p{text-align:left;margin-left:35px;opacity:.8;margin-top:1px;padding-top:1px;font-size:.9em}#ouibounce-modal .modal-footer{position:absolute;bottom:20px;text-align:center;width:100%}@-webkit-keyframes fadein{0%{opacity:0}100%{opacity:1}}@-ms-keyframes fadein{0%{opacity:0}100%{opacity:1}}@keyframes fadein{0%{opacity:0}100%{opacity:1}}@-webkit-keyframes popin{0%{-webkit-transform:scale(0);transform:scale(0);opacity:0}85%{-webkit-transform:scale(1.05);transform:scale(1.05);opacity:1}100%{-webkit-transform:scale(1);transform:scale(1);opacity:1}}@-ms-keyframes popin{0%{-ms-transform:scale(0);transform:scale(0);opacity:0}85%{-ms-transform:scale(1.05);transform:scale(1.05);opacity:1}100%{-ms-transform:scale(1);transform:scale(1);opacity:1}}@keyframes popin{0%{-webkit-transform:scale(0);-ms-transform:scale(0);transform:scale(0);opacity:0}85%{-webkit-transform:scale(1.05);-ms-transform:scale(1.05);transform:scale(1.05);opacity:1}100%{-webkit-transform:scale(1);-ms-transform:scale(1);transform:scale(1);opacity:1}}body,h1,h2,html,iframe,li,p,textarea,ul{margin:0;padding:0;border:0}html{font-family:sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}html{box-sizing:border-box}*,::after,::before{box-sizing:inherit}input,select,textarea{font-family:inherit;font-size:100%;margin:0}::-moz-focus-inner{border-style:none;padding:0}:-moz-focusring{outline:1px dotted ButtonText}body,input,select,textarea{font-family:-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-weight:400;text-transform:none;font-size:17px;line-height:1.5}p{margin-bottom:1.5em}h1,h2{font-family:inherit;font-size:100%;font-style:inherit;font-weight:inherit}h1{font-size:42px;margin-bottom:20px;line-height:1.2em;font-weight:400;text-transform:none}h2{font-size:35px;margin-bottom:20px;line-height:1.2em;font-weight:400;text-transform:none}ul{margin:0 0 1.5em 3em}ul{list-style:disc}li>ul{margin-bottom:0;margin-left:1.5em}b,strong{font-weight:700}img{height:auto;max-width:100%}input[type=submit]{background:#55555e;color:#fff;border:1px solid transparent;-webkit-appearance:button;padding:10px 20px}input[type=email],input[type=text],select,textarea{border:1px solid;border-radius:0;padding:10px 15px;max-width:100%}textarea{width:100%}a{text-decoration:none}.screen-reader-text{border:0;clip:rect(1px,1px,1px,1px);-webkit-clip-path:inset(50%);clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute!important;width:1px;word-wrap:normal!important}.site-header{position:relative}.inside-header{padding:20px 40px}.site-logo{display:inline-block;max-width:100%}.site-header .header-image{vertical-align:middle}.inside-header{display:flex;align-items:center}.site-content{word-wrap:break-word}iframe{max-width:100%}.site-content{display:flex}.grid-container{margin-left:auto;margin-right:auto;max-width:1200px}.container.grid-container{width:auto}@media (max-width:768px){.inside-header{flex-direction:column;text-align:center}.site-content{flex-direction:column}}body{background-color:#ffffff;color:#0a203e}a{color:#0a203e}.grid-container{max-width:1170px}.site-header .header-image{width:170px}:root{--contrast:#222222;--contrast-2:#575760;--contrast-3:#b2b2be;--base:#f0f0f0;--base-2:#f7f8f9;--base-3:#ffffff;--accent:#1e73be}body,input,select,textarea{font-family:-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"}body{line-height:1.5}p{margin-bottom:0em}h1{margin-bottom:0px}h2{margin-bottom:0px}@media (max-width:768px){h1{font-size:31px}h2{font-size:27px}}.site-header{background-color:#ffffff;color:#0a203e}.site-header a{color:#0a203e}input[type="text"],input[type="email"],textarea,select{color:#666666;background-color:#fafafa;border-color:#cccccc}input[type="submit"]{color:#ffffff}.inside-header{padding:20px 30px 20px 30px}@media (max-width:768px){.inside-header{padding-right:30px;padding-left:30px}}#masthead,.inside-header{position:fixed;margin-top:0;margin-bottom:0;top:auto}.menu-icon{position:fixed!important;top:0!important;right:0!important;z-index:999!important}.page-hero{z-index:999;position:relative}.inner{position:fixed;z-index:0!important;width:100%!important;background:#fff!important;height:80px!important;box-shadow:0 3px 6px 0 rgb(0 0 0 / 10%)}.header-wrap{height:80px!important;z-index:999999999!important;width:225px!important}#header{height:30px!important;position:relative}.inside-header{padding:20px 30px 20px 60px}.nav{display:inline-flex;position:relative;top:25px;right:40px;width:80%;justify-content:flex-end;background:#fff}.inner ul{margin:0;padding:0;list-style-type:none}.nav a{display:block;text-decoration:none;background:#fff}.nav>li{padding:0 20px}.nav>li{position:relative}.nav>li>ul{background:#fff;position:absolute;top:100%;left:0;opacity:0;visibility:hidden;transform:translateY(20px);box-shadow:2px 4px 16px 5px rgb(0 0 0 / 9%)}.nav .big-nav{position:static}.nav .big-nav>ul{min-height:340px!important;position:absolute;top:108%;left:0;width:88%;background:#fff;padding:10px 10px;border-top:4px solid #2d8e8b}.nav .big-nav>ul>li{width:33.33%;padding:5px 10px;background:#fff}.nav .services-menu>ul>li:after,.nav>li:after{content:url(/wp-content/uploads/2021/06/Menu-Green-Icon.svg);margin-right:10px;right:10%;float:right;margin-top:5px}.nav>li:after{margin-left:10px!important;transform:rotate(90deg);margin-top:0}.nav .big-nav>ul>li>ul{display:none;position:absolute;top:0;left:35%;width:65%;background:#fff}.nav .big-nav>ul>li.show>ul{display:block}.nav .big-nav>ul>li>ul>li{display:block;width:100%;float:left}.nav .big-nav>ul>li>ul>li.col2{width:50%;padding:15px 5px;height:336px}.nav .big-nav>ul>li>ul>li.col2-cs{padding:15px 15px}.col2 b{padding:0 10px!important}.nav .big-nav>ul>li>ul>li a{padding:4px 10px}.big-nav ul{z-index:1;text-align:left}.nav .big-nav>ul>li>ul{background:#fff;border-left:1px solid #e9e9e9}.nav #case-study-Btn{color:#000!important;padding:10px 0;background:transparent!important;border:0}.nav .underline-text:after{width:90px}.col2-cs{background-color:#e9f3f3}.col2 ul.caption-2{margin-top:7px!important}.nav .company>ul>li{width:100%}.nav .company>ul{left:0;width:88%;padding:10px 20px}li.menu-abt{display:inline-block;width:32%}.menu-abt p.caption-2{margin-top:10px}li.insights:after{display:none}.menu-abt p{margin-right:10px}.col2-cs img{margin-top:10px}.company .caption-1{margin-bottom:0}li.caption-2.insights{bottom:12px}@media only screen and (min-width:1440px) and (max-width:1920px){.nav{width:65%}}@media (max-width:768px){.nav{top:80px}.inside-header{height:60px}.inner{box-shadow:0 3px 6px 0 rgb(0 0 0 / 10%)}.menu-icon{display:block;background:#fff;width:50%;padding-left:40%!important;height:20px}.is-logo-image{max-width:90%}.inside-header{align-items:start;padding-right:0;padding-left:10px!important}.site-content{display:inline-block}.nav{display:flex;position:relative;flex-direction:column;text-align:left;width:100%;right:0}.inner{overflow:hidden;max-height:0}.menu-icon{display:inline-block;float:right;padding:30px 20px;position:relative}.menu-icon .navicon{background:#333;display:block;height:2px;position:relative;width:18px}.menu-icon .navicon:before,.menu-icon .navicon:after{background:#0a203e;content:"";display:block;height:100%;position:absolute;width:100%}.menu-icon .navicon:before{top:5px}.menu-icon .navicon:after{top:-5px}.menu-btn{display:none!important}.menu-icon{display:block}.nav .big-nav>ul{top:40%;width:100%}.nav .services-menu>ul{top:27%}.nav .company>ul{top:47%}li.big-nav{padding:10px 20px!important}.nav>li{padding:10px 20px!important}.nav .big-nav>ul>li>ul{top:unset;left:0;width:100%}.nav .big-nav>ul>li{width:100%}.nav .big-nav>ul>li.show>ul,.col2 .caption-1,.insights span{display:none}.services-menu ul.show-outer{position:absolute;z-index:99999}.show-mbl{border-bottom:1px solid #eee}.nav .big-nav>ul{min-height:290px!important}.nav .big-nav>ul>li>ul>li.col2-cs{padding:15px 20px!important;height:335px}.nav .big-nav>ul>li>ul>li.col2{width:100%;padding:0 10px;height:auto;padding-bottom:15px}.nav .caption-4{font-size:18px}li.menu-abt{width:100%;padding:10px 10px}.menu-abt p.caption-2{margin-top:10px}.company a{font-size:18px!important}.company .heading-h4{font-size:20px!important}.nav .company>ul{padding:10px 10px}.company .caption-2{margin-top:5px!important}.nav .insights .banner-btn{background:none!important;color:#0a203e!important;font-weight:normal;padding:16px 0px}}body,h1,h2,p,li,input,div,a,span{font-family:"proxima-nova",-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif!important}ul{margin:0!important}.site-header{box-shadow:none;background-color:#fff}.heading-h2,.single-post h1{font-size:39px;font-weight:bold;line-height:48px;letter-spacing:.9px;margin-bottom:20px}.heading-h4{font-size:25px!important;line-height:31px!important;letter-spacing:.57px}.caption-1{font-size:20px;line-height:28px;letter-spacing:.46px;margin-bottom:50px}.caption-2{font-size:16px!important;line-height:24px!important;letter-spacing:.37px}.caption-4{font-size:18px;line-height:26px;letter-spacing:.46px}#menu-btn{display:none!important}.case-study-modal{top:0!important;z-index:999999999!important}.site{margin-top:30px}.think_a a{color:var(--theme-ui-colors-mutedText,#0a203e);-webkit-text-decoration:none;--underlineWidth:2px;--blockLength:.75rem;background-image:linear-gradient(90deg,var(--theme-ui-colors-background,#222b40),var(--theme-ui-colors-background,#222b40)),linear-gradient(transparent,transparent),linear-gradient(var(--theme-ui-colors-primary,#0a203e),var(--theme-ui-colors-primary,#0a203e));background-repeat:no-repeat;background-size:var(--blockLength) var(--underlineWidth),100% var(--underlineWidth),0 var(--underlineWidth);background-position:calc(var(--blockLength)*-1) 100%,100% 100%,0 100%}#cookie-banner #consent-cookies{font-size:20px;padding:0.6rem 0.8rem}.single-post a.underline-text{color:#0a203e}.underline-text{position:relative;text-decoration:none;display:inline-block;color:white;font-size:16px;font-weight:600}.underline-text:after{display:block;content:'';border-bottom:solid 3px #219669;transform:scaleX(0);transform-origin:0 100%}.wpcf7 input,.wpcf7 textarea{background:#fff;border:1px solid #e2e2e2}a.banner-btn{color:#fff!important}.banner-btn{display:inline-block;vertical-align:middle;-webkit-transform:perspective(1px) translateZ(0);transform:perspective(1px) translateZ(0);-webkit-box-shadow:0 0 1px transparent;box-shadow:0 0 1px transparent;position:relative;background-image:linear-gradient(270deg,#3e82bb 0%,#219669 100%)!important;border:thin solid #219669;padding:14px 25px 14px 25px;text-decoration:none;font-size:16px;font-weight:400;line-height:20px}.banner-btn:before{content:"";position:absolute;z-index:-1;top:0;left:0;right:0;bottom:0;background-image:linear-gradient(270deg,#fff 0%,#fff 100%)!important;-webkit-transform:scaleX(0);transform:scaleX(0);-webkit-transform-origin:0 50%;transform-origin:0 50%;color:#0a203e!important}#ouibounce-modal .banner-btn{padding:5px 20px 5px 20px;float:left;margin-top:10px}.submit-margin{margin-top:10px;padding:10px 20px 10px 20px!important}.single-post .content_withsidebar_secription p{font-size:20px;letter-spacing:.46px!important;line-height:28px}.recomnded_post a{font-weight:300}select#testselectset{font-family:'proxima-nova'!important;font-size:14px!important}#ouibounce-modal .wpcf7-response-output{float:left}@media only screen and (min-width:1024px) and (max-width:1365px){.inside-header{padding:20px 30px 20px 20px}.nav{right:0}.detail_container_section_main{padding:60px 20px 0 20px}}@media (max-width:1023px) and (min-width:768px){.menu-icon{padding-left:95%!important;box-shadow:0 3px 6px 0 rgb(0 0 0 / 10%)!important;width:100%!important}.heading-h2,.single-post h1{font-size:31px;line-height:38px;letter-spacing:.57px;margin-bottom:15px}.heading-h2{margin-bottom:15px}.heading-h4{font-size:20px!important;line-height:28px!important}.caption-1{font-size:18px!important;line-height:26px!important}.caption-1{margin-bottom:30px}.inside-header{padding:15px 30px 20px 20px}.nav b.caption-2{font-size:16px;line-height:24px}#ouibounce-modal .modal{margin:0 80px!important}.detail_container_section_main{padding:60px 20px 0 20px}.content_withsidebar_column2.sticky-parent{padding-left:0}.submit-margin{width:60%}}@media (max-width:767px) and (min-width:320px){.heading-h2{font-size:22px!important;line-height:28px!important;margin-bottom:10px}.heading-h2{margin-bottom:10px}.caption-1,.caption-4{font-size:16px!important;line-height:24px!important;margin-bottom:30px}.single-post h1{font-size:31px!important;line-height:38px!important}.heading-h4,.caption-1{font-size:18px!important;line-height:26px!important;margin-top:5px}.inside-header{padding:15px 30px 20px 60px;background:#fff}.your-name input[type="text"]{width:100%!important}.dropdown_category_list{text-align:center}.detail_container_section_main{padding:50px 20px 0 20px}.detail_featured_image{min-height:200px;background-repeat:no-repeat;padding:0;background-position:center;background-size:contain}.content_withsidebar_column2.sticky-parent{padding-left:0}.submit-margin{margin-top:10px;padding:10px 20px 5px 20px!important}.single-post p,.single-post a{font-size:18px;letter-spacing:.46px!important;line-height:28px}}</style><link rel="preload" href="https://www.cuelogic.com/wp-content/cache/min/1/456f5eb35dc30c885e666d35e8566c3a.css" data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" media="all" data-minify="1" />
+	<meta name="description" content="Python plays a critical role in AI. The blog helps to understand why and how to use python in machine learning. It also explains the role of Python in AI." />
+	<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+	<link rel="canonical" href="https://www.cuelogic.com/blog/role-of-python-in-artificial-intelligence" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Role of Python in Artificial Intelligence (AI) | Python Machine Learning" />
+	<meta property="og:description" content="Python plays a critical role in AI. The blog helps to understand why and how to use python in machine learning. It also explains the role of Python in AI." />
+	<meta property="og:url" content="https://www.cuelogic.com/blog/role-of-python-in-artificial-intelligence" />
+	<meta property="og:site_name" content="Cuelogic Technologies Pvt. Ltd." />
+	<meta property="article:published_time" content="2016-06-23T12:29:48+00:00" />
+	<meta property="article:modified_time" content="2021-07-08T08:44:37+00:00" />
+	<meta property="og:image" content="https://www.cuelogic.com/wp-content/uploads/2021/06/Role-of-Python-in-Artificial-Intelligence.jpg" />
+	<meta property="og:image:width" content="1024" />
+	<meta property="og:image:height" content="512" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:label1" content="Written by">
+	<meta name="twitter:data1" content="Cuelogic Insights">
+	<meta name="twitter:label2" content="Est. reading time">
+	<meta name="twitter:data2" content="7 minutes">
+	<!-- / Yoast SEO Premium plugin. -->
+
+
+<link rel='dns-prefetch' href='//use.typekit.net' />
+<link rel='dns-prefetch' href='//snap.licdn.com' />
+<link rel='dns-prefetch' href='//p.typekit.net' />
+<link rel='dns-prefetch' href='//23o0161033pm1289qo1hzrwi-wpengine.netdna-ssl.com' />
+<link rel='dns-prefetch' href='//js.hs-banner.com' />
+<link rel='dns-prefetch' href='//js.hsadspixel.net' />
+
+<link rel="alternate" type="application/rss+xml" title="Cuelogic Technologies Pvt. Ltd. &raquo; Feed" href="https://www.cuelogic.com/feed" />
+<link rel="alternate" type="application/rss+xml" title="Cuelogic Technologies Pvt. Ltd. &raquo; Comments Feed" href="https://www.cuelogic.com/comments/feed" />
+<link rel="alternate" type="application/rss+xml" title="Cuelogic Technologies Pvt. Ltd. &raquo; Role of Python in Artificial Intelligence (AI) Comments Feed" href="https://www.cuelogic.com/blog/role-of-python-in-artificial-intelligence/feed" />
+<style>
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	
+
+<style id='contact-form-7-inline-css'>
+.wpcf7 .wpcf7-recaptcha iframe {margin-bottom: 0;}.wpcf7 .wpcf7-recaptcha[data-align="center"] > div {margin: 0 auto;}.wpcf7 .wpcf7-recaptcha[data-align="right"] > div {margin: 0 0 0 auto;}
+</style>
+
+
+
+
+
+<style id='generate-style-inline-css'>
+.no-featured-image-padding .featured-image {margin-left:-0px;margin-right:-0px;}.post-image-above-header .no-featured-image-padding .inside-article .featured-image {margin-top:-0px;}@media (max-width:768px){.no-featured-image-padding .featured-image {margin-left:-30px;margin-right:-30px;}.post-image-above-header .no-featured-image-padding .inside-article .featured-image {margin-top:-30px;}}
+.is-right-sidebar{width:30%;}.is-left-sidebar{width:30%;}.site-content .content-area{width:100%;}@media (max-width: 768px){.main-navigation .menu-toggle,.sidebar-nav-mobile:not(#sticky-placeholder){display:block;}.main-navigation ul,.gen-sidebar-nav,.main-navigation:not(.slideout-navigation):not(.toggled) .main-nav > ul,.has-inline-mobile-toggle #site-navigation .inside-navigation > *:not(.navigation-search):not(.main-nav){display:none;}.nav-align-right .inside-navigation,.nav-align-center .inside-navigation{justify-content:space-between;}}
+.dynamic-author-image-rounded{border-radius:100%;}.dynamic-featured-image, .dynamic-author-image{vertical-align:middle;}.one-container.blog .dynamic-content-template:not(:last-child), .one-container.archive .dynamic-content-template:not(:last-child){padding-bottom:0px;}.dynamic-entry-excerpt > p:last-child{margin-bottom:0px;}
+.page-hero{background-color:#ffffff;color:#0a203e;text-align:right;}.page-hero .inside-page-hero.grid-container{max-width:calc(1170px - 0px - 0px);}.page-hero h1, .page-hero h2, .page-hero h3, .page-hero h4, .page-hero h5, .page-hero h6{color:#0a203e;}.inside-page-hero > *:last-child{margin-bottom:0px;}.page-hero a, .page-hero a:visited{color:#0a203e;}.page-hero time.updated{display:none;}.page-hero a:hover{color:#2d8e8b;}.header-wrap{position:absolute;left:0px;right:0px;z-index:10;}.header-wrap .site-header{background:transparent;}
+</style>
+
+
+
+
+<style id='generate-navigation-branding-inline-css'>
+.main-navigation.has-branding .inside-navigation.grid-container, .main-navigation.has-branding.grid-container .inside-navigation:not(.grid-container){padding:0px;}.main-navigation.has-branding:not(.grid-container) .inside-navigation:not(.grid-container) .navigation-branding{margin-left:10px;}.main-navigation .sticky-navigation-logo, .main-navigation.navigation-stick .site-logo:not(.mobile-header-logo){display:none;}.main-navigation.navigation-stick .sticky-navigation-logo{display:block;}.navigation-branding img, .site-logo.mobile-header-logo img{height:60px;width:auto;}.navigation-branding .main-title{line-height:60px;}@media (max-width: 768px){.main-navigation.has-branding.nav-align-center .menu-bar-items, .main-navigation.has-sticky-branding.navigation-stick.nav-align-center .menu-bar-items{margin-left:auto;}.navigation-branding{margin-right:auto;margin-left:10px;}.navigation-branding .main-title, .mobile-header-navigation .site-logo{margin-left:10px;}.main-navigation.has-branding .inside-navigation.grid-container{padding:0px;}}
+</style>
+<style id='rocket-lazyload-inline-css'>
+.rll-youtube-player{position:relative;padding-bottom:56.23%;height:0;overflow:hidden;max-width:100%;}.rll-youtube-player iframe{position:absolute;top:0;left:0;width:100%;height:100%;z-index:100;background:0 0}.rll-youtube-player img{bottom:0;display:block;left:0;margin:auto;max-width:100%;width:100%;position:absolute;right:0;top:0;border:none;height:auto;cursor:pointer;-webkit-transition:.4s all;-moz-transition:.4s all;transition:.4s all}.rll-youtube-player img:hover{-webkit-filter:brightness(75%)}.rll-youtube-player .play{height:72px;width:72px;left:50%;top:50%;margin-left:-36px;margin-top:-36px;position:absolute;background:url(https://www.cuelogic.com/wp-content/plugins/wp-rocket/assets/img/youtube.png) no-repeat;cursor:pointer}.wp-has-aspect-ratio .rll-youtube-player{position:absolute;padding-bottom:0;width:100%;height:100%;top:0;bottom:0;left:0;right:0}
+</style>
+<script type="rocketlazyloadscript" src='https://www.cuelogic.com/wp-includes/js/jquery/jquery.min.js?ver=3.6.0' id='jquery-core-js' defer></script>
+<script type="rocketlazyloadscript" src='https://www.cuelogic.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2' id='jquery-migrate-js' defer></script>
+<script type="rocketlazyloadscript" data-minify="1" src='https://www.cuelogic.com/wp-content/cache/min/1/wp-content/themes/SaltTheme/assets/js/ouibounce.js?ver=1641894212' id='ouibounce-js-js' defer></script>
+<script type="rocketlazyloadscript" data-minify="1" src='https://www.cuelogic.com/wp-content/cache/min/1/wp-content/themes/SaltTheme/assets/js/ouibounce-custom.js?ver=1641894212' id='ouibounce-custom.js-js' defer></script>
+<link rel="https://api.w.org/" href="https://www.cuelogic.com/wp-json/" /><link rel="alternate" type="application/json" href="https://www.cuelogic.com/wp-json/wp/v2/posts/7063" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.cuelogic.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.cuelogic.com/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 5.8.2" />
+<link rel='shortlink' href='https://www.cuelogic.com/?p=7063' />
+
+
+
+
+
+
+<!-- This site is optimized with the Schema plugin v1.7.9.4 - https://schema.press -->
+<script type="application/ld+json">{"@context":"https:\/\/schema.org\/","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/www.cuelogic.com\/blog\/role-of-python-in-artificial-intelligence"},"url":"https:\/\/www.cuelogic.com\/blog\/role-of-python-in-artificial-intelligence","headline":"Role of Python in Artificial Intelligence (AI)","datePublished":"2016-06-23T12:29:48+00:00","dateModified":"2021-07-08T08:44:37+00:00","publisher":{"@type":"Organization","@id":"https:\/\/www.cuelogic.com\/#organization","name":"Cuelogic Technologies","logo":{"@type":"ImageObject","url":"https:\/\/www.cuelogic.com\/wp-content\/uploads\/2014\/01\/cuelogo.png","width":600,"height":60}},"image":{"@type":"ImageObject","url":"https:\/\/www.cuelogic.com\/wp-content\/uploads\/2021\/06\/Role-of-Python-in-Artificial-Intelligence.jpg","width":1024,"height":512},"articleSection":"Deep Learning","keywords":"python, Machine Learning, Artificial Intelligence, Pattern Recognition, AI Applications, AI Programming, Python Libraries, JPython, NLTK, Nueral Networks","description":"Python and Artificial Intelligence(AI) - How do they relate? Python is one of the most popular programming languages used by developers today. Guido Van Rossum created it in 1991 and ever since its inception has been one of the most widely used languages along with C++, Java, etc. In","author":{"@type":"Person","name":"Cuelogic Insights","url":"https:\/\/www.cuelogic.com\/blog\/author\/cuelogicinsights","image":{"@type":"ImageObject","url":"https:\/\/secure.gravatar.com\/avatar\/becd971ac8e6a8e038a2b188c7f59a85?s=96&d=mm&r=g","height":96,"width":96}}}</script>
+
+<link rel="pingback" href="https://www.cuelogic.com/xmlrpc.php">
+<style id="generateblocks-css">.gb-container .wp-block-image img{vertical-align:middle;}.gb-container .gb-shape{position:absolute;overflow:hidden;pointer-events:none;line-height:0;}.gb-container .gb-shape svg{fill:currentColor;}.gb-container-60591a2e{margin-bottom:0;background-color:#37465a;color:#ffffff;}.gb-container-60591a2e > .gb-inside-container{padding:0 0 0 50px;}.gb-container-7ceedfb1{color:#ffffff;}.gb-container-7ceedfb1 > .gb-inside-container{padding:45px 0 40px;}.gb-grid-wrapper > .gb-grid-column-7ceedfb1{width:23%;}.gb-container-e9d33b79 > .gb-inside-container{padding:90px 0 40px;}.gb-grid-wrapper > .gb-grid-column-e9d33b79{width:23%;}.gb-container-267c8b8c > .gb-inside-container{padding:45px 0;}.gb-grid-wrapper > .gb-grid-column-267c8b8c{width:27%;}.gb-container-80e71481{margin-left:5px;background-color:#253447;}.gb-container-80e71481 > .gb-inside-container{padding:45px 30px 100px 25px;}.gb-grid-wrapper > .gb-grid-column-80e71481{width:27%;}.gb-container-3dae1bb7{margin-top:20px;}.gb-container-3dae1bb7 > .gb-inside-container{padding:0;max-width:1170px;margin-left:auto;margin-right:auto;}.gb-container-87c62a15 > .gb-inside-container{padding:0;max-width:1170px;margin-left:auto;margin-right:auto;}.gb-container-3f703106 > .gb-inside-container{padding:0;}.gb-grid-wrapper > .gb-grid-column-3f703106{width:50%;}.gb-container-4fb28ae4 > .gb-inside-container{padding:0;}.gb-grid-wrapper > .gb-grid-column-4fb28ae4{width:50%;}.gb-container-11597523 > .gb-inside-container{padding:0;}.gb-container-ec1951d0 > .gb-inside-container{padding:40px 0;max-width:1170px;margin-left:auto;margin-right:auto;}.gb-container-d7f489da{background-color:#abb8c3;}.gb-container-d7f489da > .gb-inside-container{padding:80px 40px;max-width:1170px;margin-left:auto;margin-right:auto;}.gb-grid-wrapper{display:flex;flex-wrap:wrap;}.gb-grid-wrapper > .gb-grid-column > .gb-container{display:flex;flex-direction:column;height:100%;}.gb-grid-column{box-sizing:border-box;}.gb-grid-wrapper .wp-block-image{margin-bottom:0;}.gb-grid-wrapper-c24a1e31 > .gb-grid-column{padding-left:0px;}.gb-grid-wrapper-b6944053{margin-left:-30px;}.gb-grid-wrapper-b6944053 > .gb-grid-column{padding-left:30px;}.gb-icon{display:inline-flex;line-height:0;}.gb-icon svg{height:1em;width:1em;fill:currentColor;}.gb-highlight{background:none;color:unset;}p.gb-headline-fc6b9c8d{margin-bottom:20px;}p.gb-headline-7699df72{margin-bottom:5px;}p.gb-headline-8726084d{margin-top:20px;margin-bottom:5px;}p.gb-headline-90c602b1{margin-top:20px;margin-bottom:5px;}p.gb-headline-91d9c415{margin-top:10px;margin-bottom:5px;}p.gb-headline-1b99939f{margin-top:10px;margin-bottom:5px;}p.gb-headline-63324631{margin-bottom:5px;}p.gb-headline-87576675{margin-top:22px;margin-bottom:5px;}p.gb-headline-297eda6b{margin-top:25px;margin-bottom:0;}p.gb-headline-efcb981f{margin-bottom:20px;}p.gb-headline-11395d9a{text-align:left;margin-top:20px;margin-bottom:16px;}p.gb-headline-960f9a15{padding-right:0;margin-top:20px;margin-right:0;margin-bottom:20px;}p.gb-headline-ac006321{margin-bottom:20px;}p.gb-headline-dccc250f{margin-top:30px;margin-bottom:20px;}p.gb-headline-4acc672d{margin-top:20px;margin-bottom:5px;}p.gb-headline-24468253{text-align:center;}p.gb-headline-306db5ff{text-align:center;}h2.gb-headline-bccc5c31{padding-bottom:30px;}p.gb-headline-49656733{text-align:center;color:#ffffff;margin-bottom:20px;}p.gb-headline-a4bf4afb{text-align:center;color:#ffffff;margin-bottom:20px;}@media (max-width: 1024px) {.gb-container-60591a2e > .gb-inside-container{padding-left:0;}.gb-container-7ceedfb1 > .gb-inside-container{padding-left:20px;}.gb-grid-wrapper > .gb-grid-column-7ceedfb1{width:33.33%;}.gb-container-e9d33b79 > .gb-inside-container{padding-left:25px;}.gb-grid-wrapper > .gb-grid-column-e9d33b79{width:33.33%;}.gb-grid-wrapper > .gb-grid-column-267c8b8c{width:33.33%;}.gb-container-80e71481{margin-left:0;}.gb-container-80e71481 > .gb-inside-container{padding:45px 20px;}.gb-grid-wrapper > .gb-grid-column-80e71481{width:100%;}.gb-container-ec1951d0 > .gb-inside-container{padding-right:20px;padding-left:20px;}.gb-grid-wrapper-c24a1e31{margin-left:0;}.gb-grid-wrapper-c24a1e31 > .gb-grid-column{padding-left:0px;padding-bottom:0px;}}@media (max-width: 767px) {.gb-container-60591a2e > .gb-inside-container{padding-left:0;}.gb-container-7ceedfb1 > .gb-inside-container{padding-bottom:25px;padding-left:20px;}.gb-grid-wrapper > .gb-grid-column-7ceedfb1{width:100%;}.gb-container-e9d33b79 > .gb-inside-container{padding-top:0;padding-bottom:25px;padding-left:20px;}.gb-grid-wrapper > .gb-grid-column-e9d33b79{width:100%;}.gb-container-267c8b8c > .gb-inside-container{padding-top:0;padding-left:20px;}.gb-grid-wrapper > .gb-grid-column-267c8b8c{width:100%;}.gb-container-80e71481 > .gb-inside-container{padding-bottom:40px;}.gb-grid-wrapper > .gb-grid-column-80e71481{width:100%;}.gb-grid-wrapper > .gb-grid-column-3f703106{width:100%;}.gb-grid-wrapper > .gb-grid-column-4fb28ae4{width:100%;}.gb-grid-wrapper > .gb-grid-column-11597523{width:100%;}.gb-container-ec1951d0 > .gb-inside-container{padding-right:20px;padding-bottom:20px;padding-left:20px;}.gb-grid-wrapper > .gb-grid-column-ec1951d0{width:100%;}.gb-container-d7f489da > .gb-inside-container{padding:50px 30px;}.gb-grid-wrapper > .gb-grid-column-d7f489da{width:100%;}p.gb-headline-fc6b9c8d{margin-bottom:15px;}p.gb-headline-7699df72{margin-bottom:5px;}p.gb-headline-8726084d{padding-top:10px;}p.gb-headline-90c602b1{margin-bottom:12px;padding-top:10px;}p.gb-headline-91d9c415{margin-bottom:12px;}p.gb-headline-87576675{padding-top:10px;}p.gb-headline-dccc250f{padding-top:20px;}p.gb-headline-4acc672d{margin-bottom:-5px;padding-top:10px;}p.gb-headline-49656733{margin-bottom:10px;}}</style><link rel="icon" href="https://www.cuelogic.com/wp-content/uploads/2021/05/Cuelogic-Favicon-150x150.png" sizes="32x32" />
+<link rel="icon" href="https://www.cuelogic.com/wp-content/uploads/2021/05/Cuelogic-Favicon.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://www.cuelogic.com/wp-content/uploads/2021/05/Cuelogic-Favicon.png" />
+<meta name="msapplication-TileImage" content="https://www.cuelogic.com/wp-content/uploads/2021/05/Cuelogic-Favicon.png" />
+<noscript><style id="rocket-lazyload-nojs-css">.rll-youtube-player, [data-lazy-src]{display:none !important;}</style></noscript><script type="rocketlazyloadscript">
+/*! loadCSS rel=preload polyfill. [c]2017 Filament Group, Inc. MIT License */
+(function(w){"use strict";if(!w.loadCSS){w.loadCSS=function(){}}
+var rp=loadCSS.relpreload={};rp.support=(function(){var ret;try{ret=w.document.createElement("link").relList.supports("preload")}catch(e){ret=!1}
+return function(){return ret}})();rp.bindMediaToggle=function(link){var finalMedia=link.media||"all";function enableStylesheet(){link.media=finalMedia}
+if(link.addEventListener){link.addEventListener("load",enableStylesheet)}else if(link.attachEvent){link.attachEvent("onload",enableStylesheet)}
+setTimeout(function(){link.rel="stylesheet";link.media="only x"});setTimeout(enableStylesheet,3000)};rp.poly=function(){if(rp.support()){return}
+var links=w.document.getElementsByTagName("link");for(var i=0;i<links.length;i++){var link=links[i];if(link.rel==="preload"&&link.getAttribute("as")==="style"&&!link.getAttribute("data-loadcss")){link.setAttribute("data-loadcss",!0);rp.bindMediaToggle(link)}}};if(!rp.support()){rp.poly();var run=w.setInterval(rp.poly,500);if(w.addEventListener){w.addEventListener("load",function(){rp.poly();w.clearInterval(run)})}else if(w.attachEvent){w.attachEvent("onload",function(){rp.poly();w.clearInterval(run)})}}
+if(typeof exports!=="undefined"){exports.loadCSS=loadCSS}
+else{w.loadCSS=loadCSS}}(typeof global!=="undefined"?global:this))
+</script>	<!-- <script type="rocketlazyloadscript" data-rocket-type="text/javascript" src="https://cdn.websitepolicies.io/lib/cookieconsent/1.0.3/cookieconsent.min.js" defer></script>
+	<script type="rocketlazyloadscript" data-rocket-type="text/javascript">window.addEventListener("load",function(){window.wpcc.init({"colors":{"popup":{"background":"#1c1f4b","text":"#ffffff","border":"#afb3e4"},"button":{"background":"#afb3e4","text":"#000000"}},"content":{"message":"By continuing to use this website, you consent to the use of cookies in accordance with our","link":"Cookie Policy","button":"X","href":"https://www.cuelogic.com/privacy-policy"},"position":"bottom","padding":"small","margin":"small","corners":"small"})});
+    </script>  -->
+    <script>
+		// Google Tag Manager as Payload for all 3rd-party JS
+		(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','GTM-5ZM2M6C');
+	</script>
+	
+</head>
+
+<body data-rsssl=1 class="post-template-default single single-post postid-7063 single-format-standard wp-custom-logo wp-embed-responsive post-image-above-header post-image-aligned-center sticky-menu-no-transition sticky-enabled both-sticky-menu no-sidebar nav-below-header separate-containers header-aligned-left dropdown-hover featured-image-active" itemtype="https://schema.org/Blog" itemscope>
+		<!-- Google Tag Manager (noscript) -->
+	<noscript>
+	<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5ZM2M6C" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+	</noscript>
+	<!-- End Google Tag Manager (noscript) -->
+	<div class="header-wrap"><a class="screen-reader-text skip-link" href="#content" title="Skip to content">Skip to content</a>		<header class="site-header" id="masthead" aria-label="Site"  itemtype="https://schema.org/WPHeader" itemscope>
+			<div class="inside-header">
+				<div class="site-logo">
+					<a href="https://www.cuelogic.com/" title="Cuelogic Technologies Pvt. Ltd." rel="home">
+						<img  class="header-image is-logo-image" alt="Cuelogic Technologies Pvt. Ltd." src="https://www.cuelogic.com/wp-content/uploads/2021/06/Cuelogic-Black.svg" title="Cuelogic Technologies Pvt. Ltd." width="0" height="0" />
+					</a>
+				</div>			</div>
+		</header>
+		</div><!-- .header-wrap --><div class="page-hero">
+					<div class="inside-page-hero">
+						<div id="header">
+	<div class="">
+		<input class="menu-btn" type="checkbox" id="menu-btn" />
+		<label class="menu-icon" for="menu-btn"><span class="navicon"></span>
+		</label>
+		<div class="inner menu">
+			<ul class="nav">
+				<li class="big-nav services-menu caption-2"><b>Services</b>
+					<ul class="show-outer">
+						<li class="show show-mbl"><b class="caption-4">Product Engineering</b>
+							<ul class="show-inner">
+								<li class="col2"><b class="caption-1">Product Engineering</b>
+									<ul class="caption-2">
+										<li><a href="/product-development">Product Development</a>
+										</li>
+										<li><a href="/ux-consulting">Ux Consulting</a>
+										</li>
+										<li><a href="/app-development-services">Application Development</a>
+										</li>
+										<li><a href="/application-modernization">Application Modernization</a>
+										</li>
+										<li><a href="/quality-assurance-services">Quality Assurance Services</a>
+										</li>
+									</ul>
+								</li>
+								<li class="col2 col2-cs">
+									<ul>
+										<li>
+											<p>Migrating application and databases to the cloud, moving from legacy technologies to a serverless platform for a FinTech organization.
+											</p>
+											<picture>
+<source type="image/webp" data-lazy-srcset="/wp-content/uploads/2021/06/Product-Engineering.jpg.webp" srcset="data:image/svg+xml,%3Csvg%20xmlns=&#039;http://www.w3.org/2000/svg&#039;%20viewBox=&#039;0%200%20350%20150&#039;%3E%3C/svg%3E"/>
+<img src="data:image/svg+xml,%3Csvg%20xmlns=&#039;http://www.w3.org/2000/svg&#039;%20viewBox=&#039;0%200%20350%20150&#039;%3E%3C/svg%3E" alt="Product-Engineering" width="350" height="150" data-lazy-src="/wp-content/uploads/2021/06/Product-Engineering.jpg"/>
+</picture>
+<noscript><picture>
+<source type="image/webp" srcset="/wp-content/uploads/2021/06/Product-Engineering.jpg.webp"/>
+<img src="/wp-content/uploads/2021/06/Product-Engineering.jpg" alt="Product-Engineering" width="350" height="150"/>
+</picture>
+</noscript>											
+										<a id="case-study-Btn" class="underline-text download-case-study case_study_download_btn" href="javascript:void(0)" case-study="Migrating application and databases to the cloud, moving from legacy technologies to a serverless platform for a FinTech organization."> Download ❯</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li class="show-mbl"><b class="caption-4">Cloud Engineering</b>
+							<ul class="show-inner">
+								<li class="col2"><b class="caption-1">Cloud Engineering</b>
+									<ul class="caption-2">
+										<li><a href="/cloud-services">Cloud Services</a>
+										</li>
+										<li><a href="/devops-services">Devops Services</a>
+										</li>
+										<li><a href="/cloud-migration">Cloud Migration</a>
+										</li>
+										<li><a href="/cloud-optimization">Cloud Optimization</a>
+										</li>
+										<li><a href="/cloud-computing-services">Cloud Computing Services</a>
+										</li>
+										<li><a href="/kubernetes-consulting-services">Kubernetes Consulting Services</a>
+										</li>
+									</ul>
+								</li>
+								<li class="col2 col2-cs">
+									<ul>
+										<li>
+											<p>Building end-to-end data engineering capabilities and setting up DataOps for a healthcare ISV managing sensitive health data.
+												<br>
+											</p>
+											<img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20350%20150'%3E%3C/svg%3E" alt="Cloud-Engineering" width="350" height="150" data-lazy-src="/wp-content/uploads/2021/06/Cloud-Engineering.jpg"><noscript><img src="/wp-content/uploads/2021/06/Cloud-Engineering.jpg" alt="Cloud-Engineering" width="350" height="150"></noscript>
+											<br><a id="case-study-Btn" class="underline-text download-case-study case_study_download_btn" href="javascript:void(0)" case-study="Building end-to-end data engineering capabilities and setting up DataOps for a healthcare ISV managing sensitive health data."> Download ❯</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li class="show-mbl"><b class="caption-4">Data & Machine Learning</b>
+							<ul class="show-inner">
+								<li class="col2"><b class="caption-1">Data & Machine Learning</b>
+									<ul class="caption-2">
+										<li><a href="/big-data-services">Big Data Services</a>
+										</li>
+										<li><a href="/ai-consulting">AI Consulting</a>
+										</li>
+									</ul>
+								</li>
+								<li class="col2 col2-cs">
+									<ul>
+										<li>
+											<p>Setting up a next-gen SIEM system, processing PB scale data with zero lag, and implementing real-time threat detection.
+												<br>
+											</p>
+											<picture>
+<source type="image/webp" data-lazy-srcset="/wp-content/uploads/2021/06/Data-Machine-Learning.jpg.webp" srcset="data:image/svg+xml,%3Csvg%20xmlns=&#039;http://www.w3.org/2000/svg&#039;%20viewBox=&#039;0%200%20350%20150&#039;%3E%3C/svg%3E"/>
+<img src="data:image/svg+xml,%3Csvg%20xmlns=&#039;http://www.w3.org/2000/svg&#039;%20viewBox=&#039;0%200%20350%20150&#039;%3E%3C/svg%3E" alt="Data-Machine-Learning" width="350" height="150" data-lazy-src="/wp-content/uploads/2021/06/Data-Machine-Learning.jpg"/>
+</picture>
+<noscript><picture>
+<source type="image/webp" srcset="/wp-content/uploads/2021/06/Data-Machine-Learning.jpg.webp"/>
+<img src="/wp-content/uploads/2021/06/Data-Machine-Learning.jpg" alt="Data-Machine-Learning" width="350" height="150"/>
+</picture>
+</noscript>
+											<a id="case-study-Btn" class="underline-text download-case-study case_study_download_btn" href="javascript:void(0)" case-study="Setting up a next-gen SIEM system, processing PB scale data with zero lag, and implementing real-time threat detection."> Download ❯</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li class="show-mbl"><b class="caption-4">Internet of Things</b>
+							<ul class="show-inner">
+								<li class="col2"><b class="caption-1">Internet of Things</b>
+									<ul class="caption-2">
+										<li><a href="/iot-consulting">IoT Consulting</a>
+										</li>
+										<li><a href="/iot-app-development">IoT App Development</a>
+										</li>
+									</ul>
+								</li>
+								<li class="col2 col2-cs">
+									<ul>
+										<li>
+											<p>Building a technically robust IoT ecosystem that was awarded the best implementation in Asia Pacific for a new age IoT business.
+												<br>
+											</p>
+											<picture>
+<source type="image/webp" data-lazy-srcset="/wp-content/uploads/2021/06/Internet-of-Things.jpg.webp" srcset="data:image/svg+xml,%3Csvg%20xmlns=&#039;http://www.w3.org/2000/svg&#039;%20viewBox=&#039;0%200%20350%20150&#039;%3E%3C/svg%3E"/>
+<img src="data:image/svg+xml,%3Csvg%20xmlns=&#039;http://www.w3.org/2000/svg&#039;%20viewBox=&#039;0%200%20350%20150&#039;%3E%3C/svg%3E" alt="Internet-of-Things" width="350" height="150" data-lazy-src="/wp-content/uploads/2021/06/Internet-of-Things.jpg"/>
+</picture>
+<noscript><picture>
+<source type="image/webp" srcset="/wp-content/uploads/2021/06/Internet-of-Things.jpg.webp"/>
+<img src="/wp-content/uploads/2021/06/Internet-of-Things.jpg" alt="Internet-of-Things" width="350" height="150"/>
+</picture>
+</noscript>
+											<a id="case-study-Btn" class="underline-text download-case-study case_study_download_btn" href="javascript:void(0)" case-study="Building a technically robust IoT ecosystem that was awarded the best implementation in Asia Pacific for a new age IoT business."> Download ❯</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li class="show-mbl"><b class="caption-4">Innovation Lab as a Service</b>
+							<ul class="show-inner">
+								<li class="col2"><b class="caption-1">Innovation Lab as a Service</b>
+									<ul class="caption-2">
+										<li><a href="/innovation-consulting">Innovation Lab as a Service</a>
+										</li>
+									</ul>
+								</li>
+								<li class="col2 col2-cs">
+									<ul>
+										<li>
+											<p>Establishing an Innovation Lab for the world’s largest Pharma ISV, accelerating product innovation & tech research while ensuring BaU.
+												<br>
+											</p>
+											<picture>
+<source type="image/webp" data-lazy-srcset="/wp-content/uploads/2021/06/Innovation-Lab-as-a-Service.jpg.webp" srcset="data:image/svg+xml,%3Csvg%20xmlns=&#039;http://www.w3.org/2000/svg&#039;%20viewBox=&#039;0%200%20350%20150&#039;%3E%3C/svg%3E"/>
+<img src="data:image/svg+xml,%3Csvg%20xmlns=&#039;http://www.w3.org/2000/svg&#039;%20viewBox=&#039;0%200%20350%20150&#039;%3E%3C/svg%3E" alt="Innovation-Lab-as-a-Service" width="350" height="150" data-lazy-src="/wp-content/uploads/2021/06/Innovation-Lab-as-a-Service.jpg"/>
+</picture>
+<noscript><picture>
+<source type="image/webp" srcset="/wp-content/uploads/2021/06/Innovation-Lab-as-a-Service.jpg.webp"/>
+<img src="/wp-content/uploads/2021/06/Innovation-Lab-as-a-Service.jpg" alt="Innovation-Lab-as-a-Service" width="350" height="150"/>
+</picture>
+</noscript>
+											<br>
+											<a id="case-study-Btn" class="underline-text download-case-study case_study_download_btn" href="javascript:void(0)" case-study="Establishing an Innovation Lab for the world’s largest Pharma ISV, accelerating product innovation & tech research while ensuring BaU."> Download ❯</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li class="show-mbl"><b class="caption-4">Cybersecurity Services</b>
+							<ul class="show-inner">
+								<li class="col2"><b class="caption-1">Cybersecurity Services</b>
+									<ul class="caption-2">
+										<li><a href="/cybersecurity-services">Cybersecurity Services</a>
+										</li>
+									</ul>
+								</li>
+								<li class="col2 col2-cs">
+									<ul>
+										<li>
+											<p>Big Data Engineering at scale for IAC’s SIEM system, processing PB scale data to help brands like Tinder, Vimeo, Dotdash, etc.
+												<br>
+											</p>
+											<picture>
+<source type="image/webp" data-lazy-srcset="/wp-content/uploads/2021/06/Cybersecurity-Services.jpg.webp" srcset="data:image/svg+xml,%3Csvg%20xmlns=&#039;http://www.w3.org/2000/svg&#039;%20viewBox=&#039;0%200%20350%20150&#039;%3E%3C/svg%3E"/>
+<img src="data:image/svg+xml,%3Csvg%20xmlns=&#039;http://www.w3.org/2000/svg&#039;%20viewBox=&#039;0%200%20350%20150&#039;%3E%3C/svg%3E" alt="Cybersecurity-Services" width="350" height="150" data-lazy-src="/wp-content/uploads/2021/06/Cybersecurity-Services.jpg"/>
+</picture>
+<noscript><picture>
+<source type="image/webp" srcset="/wp-content/uploads/2021/06/Cybersecurity-Services.jpg.webp"/>
+<img src="/wp-content/uploads/2021/06/Cybersecurity-Services.jpg" alt="Cybersecurity-Services" width="350" height="150"/>
+</picture>
+</noscript>
+											<br>
+											<a id="case-study-Btn" class="underline-text download-case-study case_study_download_btn" href="javascript:void(0)" case-study="Big Data Engineering at scale for IAC’s SIEM system, processing PB scale data to help brands like Tinder, Vimeo, Dotdash, etc."> Download ❯</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li class="show-mbl"><b class="caption-4">Healthcare IT Services</b>
+							<ul class="show-inner">
+								<li class="col2"><b class="caption-1">Healthcare IT Services</b>
+									<ul class="caption-2">
+										<li><a href="/healthcare-it-services">Healthcare IT Services</a>
+										</li>
+									</ul>
+								</li>
+								<li class="col2 col2-cs">
+									<ul>
+										<li>
+											<p>Upgrading a platform for patients to access doctors via chat or video consultation, modernizing design, & migrating infra to the cloud.
+												<br>
+											</p>
+											<picture>
+<source type="image/webp" data-lazy-srcset="/wp-content/uploads/2021/06/Healthcare-IT-Services-1.jpg.webp" srcset="data:image/svg+xml,%3Csvg%20xmlns=&#039;http://www.w3.org/2000/svg&#039;%20viewBox=&#039;0%200%20350%20150&#039;%3E%3C/svg%3E"/>
+<img src="data:image/svg+xml,%3Csvg%20xmlns=&#039;http://www.w3.org/2000/svg&#039;%20viewBox=&#039;0%200%20350%20150&#039;%3E%3C/svg%3E" alt="Healthcare-IT-Services" width="350" height="150" data-lazy-src="/wp-content/uploads/2021/06/Healthcare-IT-Services-1.jpg"/>
+</picture>
+<noscript><picture>
+<source type="image/webp" srcset="/wp-content/uploads/2021/06/Healthcare-IT-Services-1.jpg.webp"/>
+<img src="/wp-content/uploads/2021/06/Healthcare-IT-Services-1.jpg" alt="Healthcare-IT-Services" width="350" height="150"/>
+</picture>
+</noscript>
+											<a id="case-study-Btn" class="underline-text download-case-study case_study_download_btn" href="javascript:void(0)" case-study="Upgrading a platform for patients to access doctors via chat or video consultation, modernizing design, & migrating infra to the cloud."> Download ❯</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li class="big-nav company caption-2"><b>Company</b>
+					<ul class="show-outer">
+						<li><b><span class="heading-h4">Company</span></b>
+							<p class="caption-2">Find out why Cuelogic, a world-leading software product development company, is the best fit for your needs. See how our engineering excellence makes a difference in the lives of everyone we work with.</p>
+							<br>
+						</li>
+						<ul>
+							<li class="caption-1 menu-abt">
+								<picture>
+<source type="image/webp" data-lazy-srcset="/wp-content/uploads/2021/06/about-us.png.webp" srcset="data:image/svg+xml,%3Csvg%20xmlns=&#039;http://www.w3.org/2000/svg&#039;%20viewBox=&#039;0%200%2040%2040&#039;%3E%3C/svg%3E"/>
+<img src="data:image/svg+xml,%3Csvg%20xmlns=&#039;http://www.w3.org/2000/svg&#039;%20viewBox=&#039;0%200%2040%2040&#039;%3E%3C/svg%3E" width="40" height="40" alt="about us" data-lazy-src="/wp-content/uploads/2021/06/about-us.png"/>
+</picture>
+<noscript><picture>
+<source type="image/webp" srcset="/wp-content/uploads/2021/06/about-us.png.webp"/>
+<img src="/wp-content/uploads/2021/06/about-us.png" width="40" height="40" alt="about us"/>
+</picture>
+</noscript>
+								<br><b><a href="/about">About</a></b>
+								<p class="caption-2">Discover how Cuelogic is as a global software consultancy and explore what makes us stand apart.</p>
+							</li>
+							<li class="caption-1 menu-abt">
+								<picture>
+<source type="image/webp" data-lazy-srcset="/wp-content/uploads/2021/06/Culture.png.webp" srcset="data:image/svg+xml,%3Csvg%20xmlns=&#039;http://www.w3.org/2000/svg&#039;%20viewBox=&#039;0%200%2040%2040&#039;%3E%3C/svg%3E"/>
+<img src="data:image/svg+xml,%3Csvg%20xmlns=&#039;http://www.w3.org/2000/svg&#039;%20viewBox=&#039;0%200%2040%2040&#039;%3E%3C/svg%3E" width="40" height="40" alt="Culture" data-lazy-src="/wp-content/uploads/2021/06/Culture.png"/>
+</picture>
+<noscript><picture>
+<source type="image/webp" srcset="/wp-content/uploads/2021/06/Culture.png.webp"/>
+<img src="/wp-content/uploads/2021/06/Culture.png" width="40" height="40" alt="Culture"/>
+</picture>
+</noscript>
+								<br><b><a href="/careers/culture">Culture</a></b>
+								<p class="caption-2">Read about our free and open culture, a competitive edge that helps clients and employees thrive.</p>
+							</li>
+							<li class="caption-1 menu-abt">
+								<picture>
+<source type="image/webp" data-lazy-srcset="/wp-content/uploads/2021/06/Current-opening.png.webp" srcset="data:image/svg+xml,%3Csvg%20xmlns=&#039;http://www.w3.org/2000/svg&#039;%20viewBox=&#039;0%200%2040%2040&#039;%3E%3C/svg%3E"/>
+<img src="data:image/svg+xml,%3Csvg%20xmlns=&#039;http://www.w3.org/2000/svg&#039;%20viewBox=&#039;0%200%2040%2040&#039;%3E%3C/svg%3E" width="40" height="40" alt="Current Openings" data-lazy-src="/wp-content/uploads/2021/06/Current-opening.png"/>
+</picture>
+<noscript><picture>
+<source type="image/webp" srcset="/wp-content/uploads/2021/06/Current-opening.png.webp"/>
+<img src="/wp-content/uploads/2021/06/Current-opening.png" width="40" height="40" alt="Current Openings"/>
+</picture>
+</noscript>
+								<br><b><a href="/careers/current-openings">Current Openings</a></b>
+								<p class="caption-2">Want to join us? Search current openings, check out the recruitment process, or email your resume.</p>
+							</li>
+						</ul>
+					</ul>
+				</li>
+				<li class="insights"><b class="caption-2"><a href="/blog">Insights</a></b>
+				</li>
+				<li class="caption-2 insights"><a class="smooth-scroll banner-btn" href="/contact-us">Tell Us Your Project&nbsp;&nbsp;<span style="font-size: 15px; font-weight: 100;">❯</span></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+					</div>
+				</div><div class="gb-container gb-container-11597523 blog_sticky_cta"><div class="gb-inside-container">
+
+
+</div></div>
+	<div id="page" class="site grid-container container hfeed">
+				<div id="content" class="site-content">
+			<div class="detail_container_section_main">
+
+	<div class="detail_cintent_withsidebar_section">
+		<div class="detail_content_withsidebar_row">
+			<div class="content_withsidebar_column1">
+				<div class="detail_header_section_main">
+					<div class="detail-row">
+						<div class="column_1">
+							<div class="metafield">
+								      <div class="blog_rd_tm_section">
+        <span class="post_category_nam">
+          <a href=https://www.cuelogic.com/category/ai>AI</a></span>&nbsp;&nbsp;<span class="post_read_nam">7 Mins Read</span>&nbsp;&nbsp;<span class="publish_date">June 23, 2016</span>&nbsp;&nbsp;<span class="publish_date">Cuelogic Insights</span>
+      </div>
+  							</div>
+							<div class="column_ineer">
+								
+								<div class="blog_title"><h1 class="heading-h2">Role of Python in Artificial Intelligence (AI)</h1></div>
+								<?php
+$wplogoutURL = urlencode(get_the_permalink());
+$wplogoutTitle = urlencode(get_the_title());
+$wplogoutImage= urlencode(get_the_post_thumbnail_url(get_the_ID(), 'full'));
+?>
+<div class="wplogout-social-wrapper top-social">
+	<span class="share_vai">Share Via - </span>
+		<a class="wplogout-social-sharing wplogout-social-facebook" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $wplogoutURL; ?>" target="_blank" rel="nofollow"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2025%2020'%3E%3C/svg%3E" alt="facebook" width="25" height="20" data-lazy-src="https://www.cuelogic.com/wp-content/uploads/2021/06/facebook_1.svg"><noscript><img src="https://www.cuelogic.com/wp-content/uploads/2021/06/facebook_1.svg" alt="facebook" width="25" height="20"></noscript></a>
+		<a class="wplogout-social-sharing wplogout-social-twitter" href="https://twitter.com/intent/tweet?text=<?php echo $wplogoutTitle;?>&amp;url=<?php echo $wplogoutURL;?>&amp;via=wplogout" target="_blank" rel="nofollow"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2025%2020'%3E%3C/svg%3E" alt="twitter" width="25" height="20" data-lazy-src="https://www.cuelogic.com/wp-content/uploads/2021/06/twitter_1.svg"><noscript><img src="https://www.cuelogic.com/wp-content/uploads/2021/06/twitter_1.svg" alt="twitter" width="25" height="20"></noscript></a>
+		<a class="wplogout-social-sharing wplogout-social-linkedin" href="https://www.linkedin.com/shareArticle?url=<?php echo $wplogoutURL; ?>&amp;title=<?php echo $wplogoutTitle; ?>&amp;mini=true" target="_blank" rel="nofollow"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2025%2020'%3E%3C/svg%3E" alt="linkidin" width="25" height="20" data-lazy-src="https://www.cuelogic.com/wp-content/uploads/2021/06/linkedin_1.svg"><noscript><img src="https://www.cuelogic.com/wp-content/uploads/2021/06/linkedin_1.svg" alt="linkidin" width="25" height="20"></noscript></a>
+
+</div>							</div>
+						</div>
+
+						<div class="column_2">
+														<!-- <div data-bg="https://www.cuelogic.com/wp-content/uploads/2021/06/Role-of-Python-in-Artificial-Intelligence.jpg" class="detail_featured_image rocket-lazyload" style=""> -->
+								<div class="detail_featured_image">
+								<picture>
+<source type="image/webp" data-lazy-srcset="https://www.cuelogic.com/wp-content/uploads/2021/06/Role-of-Python-in-Artificial-Intelligence.jpg.webp" srcset="data:image/svg+xml,%3Csvg%20xmlns=&#039;http://www.w3.org/2000/svg&#039;%20viewBox=&#039;0%200%20100%20400&#039;%3E%3C/svg%3E"/>
+<img src="data:image/svg+xml,%3Csvg%20xmlns=&#039;http://www.w3.org/2000/svg&#039;%20viewBox=&#039;0%200%20100%20400&#039;%3E%3C/svg%3E" width="100%" height="400" data-lazy-src="https://www.cuelogic.com/wp-content/uploads/2021/06/Role-of-Python-in-Artificial-Intelligence.jpg"/>
+</picture>
+<noscript><picture>
+<source type="image/webp" srcset="https://www.cuelogic.com/wp-content/uploads/2021/06/Role-of-Python-in-Artificial-Intelligence.jpg.webp"/>
+<img src="https://www.cuelogic.com/wp-content/uploads/2021/06/Role-of-Python-in-Artificial-Intelligence.jpg" width="100%" height="400"/>
+</picture>
+</noscript>
+							</div>
+						</div>
+						<div class="column_3">
+							<div class="breadcrumb_inner">
+								<p class="breadcrumb"><a href="https://www.cuelogic.com/blog">Home</a> > <span class="main_b_title">Role of Python in Artificial Intelligence (AI)</span></p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="content_withsidebar_innercolumn1">
+					<div class="content_withsidebar_secription">
+						
+<h2 id="h-python-and-artificial-intelligence-ai-how-do-they-relate">Python and Artificial Intelligence(AI) &#8211; How do they relate?</h2>
+
+
+
+<p>Python is one of the most popular programming languages used by developers today. Guido Van Rossum created it in 1991 and ever since its inception has been one of the most widely used languages along with C++, Java, etc.</p>
+
+
+
+<p>In our endeavour to identify what is the best <a href="https://www.cuelogic.com/blog/python-in-finance-analytics-artificial-intelligence">programming language for AI</a> and neural network, Python has taken a big lead. Let us look at why <a href="../ai-consulting" target="_blank" rel="noreferrer noopener">Artificial Intelligence</a> with Python is one of the best ideas under the sun.</p>
+
+
+
+<h2 id="h-features-and-advantages-of-python">Features and Advantages of Python</h2>
+
+
+
+<p>Python is an Interpreted language which in lay man’s terms means that it does not need to be compiled into machine language instruction before execution and can be used by the developer directly to run the program. This makes it comprehensive enough for the language to be interpreted by an emulator or a virtual machine on top of the native machine language which is what the hardware understands.</p>
+
+
+
+<p>It is a <a href="/blog/10-best-iot-programming-languages" target="_blank" rel="noopener noreferrer">High-Level Programing</a> language and can be used for complicated scenarios. High-level languages deal with variables, arrays, objects, complex arithmetic or Boolean expressions, and other abstract computer science concepts to make it more comprehensive thereby exponentially increasing its usability.</p>
+
+
+
+<p>Python is also a General-purpose programming language which means it can be used across domains and technologies.</p>
+
+
+
+<p>Python also features dynamic type system and automatic memory management supporting a wide variety of programming paradigms including object-oriented, imperative, functional and procedural to name a few.</p>
+
+
+
+<p>Python is available for all Operating Systems and also has an open-source offering titled CPython which is garnering widespread popularity as well.</p>
+
+
+
+<p>Let us now look as to how using Python for Artificial Inelegance gives us an edge over other popular programming languages.</p>
+
+
+
+<h2 id="h-ai-and-python-why">AI and Python: Why?</h2>
+
+
+
+<p>The obvious question that we need to encounter at this point is why we should choose <a href="https://www.cuelogic.com/blog/advanced-image-processing-with-python">Python for AI over others</a>.</p>
+
+
+
+<p>Python offers the least code among others and is in fact 1/5 the number compared to other OOP languages. No wonder it is one of the most popular in the market today.</p>
+
+
+
+<ul><li>Python has Prebuilt Libraries like Numpy for scientific computation, Scipy for advanced computing and Pybrain for machine learning (Python Machine Learning) making it one of the best languages For AI.</li><li>Python developers around the world provide comprehensive support and assistance via forums and tutorials making the job of the coder easier than any other popular languages.</li><li>Python is platform Independent and is hence one of the most flexible and popular choiceS for use across different platforms and technologies with the least tweaks in basic coding.</li><li>Python is the most flexible of all others with options to choose between OOPs approach and scripting. You can also use IDE itself to check for most codes and is a boon for developers struggling with different algorithms.</li></ul>
+
+
+
+<h2 id="h-decoding-python-alongside-ai">Decoding Python alongside AI</h2>
+
+
+
+<p>Python along with packages like NumPy, scikit-learn, iPython Notebook, and matplotlib form the basis to start your AI project.</p>
+
+
+
+<p>NumPy is used as a container for generic data comprising of an N-dimensional array object, tools for integrating C/C++ code, Fourier transform, random number capabilities, and other functions.</p>
+
+
+
+<p>Another useful library is pandas, an open source library that provides users with easy-to-use data structures and analytic tools for Python.</p>
+
+
+
+<p>Matplotlib is another service which is a 2D plotting library creating publication quality figures. You can use matplotlib to up to 6 graphical users interface toolkits, web application servers, and Python scripts.</p>
+
+
+
+<p>Your next step will be to explore k-means clustering and also gather knowledge about decision trees, continuous numeric prediction, logistic regression, etc.</p>
+
+
+
+<p>Some of the most commonly used Python AI libraries are AIMA, pyDatalog, SimpleAI, EasyAi, etc. There are also Python libraries for machine learning like PyBrain, MDP, scikit, PyML.</p>
+
+
+
+<p>Let us look a little more in detail about the various Python libraries in AI and why this programming language is used for AI.</p>
+
+
+
+<h3 id="h-python-libraries-for-general-ai">Python Libraries for General AI</h3>
+
+
+
+<ul><li><strong>AIMA</strong> – Python implementation of algorithms from Russell and Norvig’s ‘Artificial Intelligence: A Modern Approach.’</li><li><strong>pyDatalog</strong> – Logic Programming engine in Python</li><li><strong>SimpleAI</strong> – Python implementation of many of the artificial intelligence algorithms described on the book “Artificial Intelligence, a Modern Approach”. It focuses on providing an easy to use, well documented and tested library.</li><li><strong>EasyAI</strong> – Simple Python engine for two-players games with AI (Negamax, transposition tables, game solving).</li></ul>
+
+
+
+<h3 id="h-python-for-machine-language-ml">Python for Machine Language (ML)</h3>
+
+
+
+<p>Let us look as to why Python is used for Machine Learning and the various libraries it offers for the purpose.</p>
+
+
+
+<ul><li><strong>PyBrain</strong> &#8211;&nbsp;&nbsp;A flexible, simple yet effective algorithm for ML tasks. It is also a modular Machine Learning Library for Python providing a variety of predefined environments to test and compare algorithms.</li><li><strong>PyML</strong> – A bilateral framework written in Python that focuses on SVMs and other kernel methods. It is supported on Linux and Mac OS X.</li><li><strong>Scikit-learn</strong> – Scikit-learn is an efficient tool for data analysis while using Python. It is open source and the most popular general purpose machine learning library.</li><li><strong>MDP-Toolkit</strong> – Another Python data processing framework that can be easily expanded, it also has a collection of supervised and unsupervised learning algorithms and other data processing units that can be combined into data processing sequences and more complex feed-forward network architectures. The implementation of new algorithms is easy and intuitive. The base of available algorithms is steadily increasing and includes signal processing methods (Principal Component Analysis, Independent Component Analysis, and Slow Feature Analysis), manifold learning methods ([Hessian] Locally Linear Embedding), several classifiers, probabilistic methods (Factor Analysis, RBM), data pre-processing methods, and many others.</li></ul>
+
+
+
+<h3 id="h-python-libraries-for-natural-language-text-processing">Python Libraries for Natural Language &amp; Text Processing</h3>
+
+
+
+<ul><li><strong>NLTK</strong> – Open source Python modules, linguistic data and documentation for research and development in natural language processing and text analytics with distributions for Windows, Mac OSX, and Linux.</li></ul>
+
+
+
+<h2 id="h-python-over-other-popular-languages"><strong>Python over other popular languages</strong></h2>
+
+
+
+<p>Let us now see where Python stands with another computer language for AI like C++ and Java.</p>
+
+
+
+<h3 id="h-python-vs-c-for-ai">Python vs. C++ for AI</h3>
+
+
+
+<ul><li>Python is a more popular language over C++ for AI and leads with a 57% vote among developers. That is because Python is easy to learn and implement. With its many libraries, they can also be used for data analysis.</li><li>Performance wise C++ outperforms Python. This is because C++ has the advantage of being a statically typed language and hence there are no typing errors during runtime. C++ also creates more compact and faster runtime code.</li><li>Python is a dynamic (as opposed to static) language and reduces complexity when it comes to collaborating meaning you can implement functionality with less code. Unlike C++, where all significant compilers tend to do specific optimisation and can be platform specific, Python code can be run on pretty much any platform without wasting time on specific configurations.</li><li>With the rise of GPU-accelerated computing offering capabilities for parallelism which has led to the creation of libraries such as CUDA Python and cuDNN, Python has the edge over C++.&nbsp; This means is that more and more of the actual computing for machine learning workloads is being offloaded to GPUs – and the result is that any performance advantage that C++ may have is becoming increasingly irrelevant.</li><li>Python wins over C++ regarding simplicity of code, especially amongst new developers. C++ being a lower-level language requires more experience and skill to master.</li><li>Python’s simple syntax also allows for a more natural and intuitive ETL (Extract, Transform, Load) process, and means that it is faster for development when compared to C++, allowing developers to test machine learning algorithms without having to implement them quickly.</li></ul>
+
+
+
+<p>Between C++ and Python, the latter has more edge and is more suitable for AI. With its simple syntax and readability promoting the rapid testing of complex machine learning algorithms and a thriving community bolstered by collaborative tools like Jupyter Notebooks and Google Colab, Python wins the crown.</p>
+
+
+
+<h2 id="h-related-reading">Related Reading</h2>
+
+
+<p>[wcp-carousel id=&#8221;10004&#8243;]</p>
+
+
+
+<h3 id="h-lisp-for-ai">LISP for AI</h3>
+
+
+
+<p>Before we deal with Java, let us look at LISP with AI and how they are compatible with each other. LISP is favoured in AI because after many years of research in various universities fast prototyping was chosen over fast execution. Garbage collection, dynamic typing, functions as data, consistent syntax, interactive environment, and extensibility are some of its feature that makes the language suitable for AI programming.</p>
+
+
+
+<h3 id="h-java-with-ai">Java with AI</h3>
+
+
+
+<p>To master how to program Artificial Intelligence in Java, It is essential to know where it stands in comparison to Python.</p>
+
+
+
+<ul><li>Java is a compiled language whereas Python is an interpreted language.</li><li>The two languages are also written differently. A structure in Java is enclosed in braces. Python uses indentation to perform the same tasks.</li><li>Java is also performance wise slower, and for developing high-end applications in AI, Python is more preferred by developers.</li></ul>
+
+
+
+<p>Java Artificial Intelligence Library is Java’s answer to Python but is still less accessible to developers for apparent reasons. The Java Norvig Russell modern approach to AI has paved the way for many to sit back and notice why it could be the best language for a neural network.</p>
+
+
+
+<h2 id="h-case-study"><strong>Case Study</strong></h2>
+
+
+
+<p>An experiment to bring AI to use with an Internet of Things was done to make an IoT Application for employee behavioural analytics. The software provides useful feedback to employees through employee emotions and behaviour analysis, thus enhancing positive changes in management and work habits.</p>
+
+
+
+<p>Using python machine learning libraries, opencv and haarcascading concepts for application training, a sample POC was built to detect basic emotions like happiness, anger, sadness, disgust, suspicion, contempt, sarcasm and surprise through wireless cameras attached at various bay points.</p>
+
+
+
+<p>The data collected was fed to a centralised cloud computing database where daily emotional quotient within the bay or even the entire office could be retrieved at the click of a button either through an android device or desktop.</p>
+
+
+
+<p>Developers are making gradual progress in analysing further complex points on facial emotions and mine more details with the help of deep learning algorithms and machine learning which can help analyse individual employee performance and support in proper employee/team feedback.</p>
+
+
+
+<h2 id="h-conclusion"><strong>Conclusion</strong></h2>
+
+
+
+<p>Python plays a vital role in AI coding language by providing it with good frameworks like scikit-learn: machine learning in Python, which fulfils almost every need in this field and D3.js – Data-Driven Documents in JS, which is one of the most powerful and easy-to-use tools for visualisation.</p>
+
+
+
+<p>Other than frameworks, its fast prototyping makes it an important language not to be ignored. AI needs a lot of research, and hence it is necessary not to require a 500 KB boilerplate code in Java to test a new hypothesis, which will never finish the project. In Python, almost every idea can be quickly validated through 20-30 lines of code (same for JS with libs). Therefore, it is a pretty useful language for the sake of AI.</p>
+
+
+
+<p>Thus it is quite evident that Python is the best <a href="https://en.wikipedia.org/wiki/List_of_programming_languages_for_artificial_intelligence" target="_blank" rel="noopener noreferrer">AI Programming Language</a> under the sun. Apart from being the best language for artificial intelligence, Python is useful for many other objectives.<strong>Related Reading</strong><br>
+[wcp-carousel id=&#8221;10009&#8243;]</p>
+					</div>										
+				</div>
+			</div>
+			<div class="content_withsidebar_column2 sticky-parent">
+				<div class="sticky-column">
+					<div class="inner-sticky-column">
+									        <p class="recomnde_title">Recommended Content</p>
+				        <div>
+				        
+					            <div class="think_a recomnded_post"><a href="https://www.cuelogic.com/blog/ai-based-security-systems" class="underline-text-rec">Ethical Bias In AI-Based Security Systems: The Big Data Disconnect &nbsp;❯</a></div>
+					            
+					            <div class="think_a recomnded_post"><a href="https://www.cuelogic.com/blog/ai-optimism-and-talent" class="underline-text-rec">AI Optimism And The Race For Talent &nbsp;❯</a></div>
+					            
+					            <div class="think_a recomnded_post"><a href="https://www.cuelogic.com/blog/machine-learning-for-healthcare" class="underline-text-rec">Machine Learning to revolutionize the Growing Electronic Health Records &nbsp;❯</a></div>
+					                        			</div>
+            			<div class="category_drop_shrtcode"><div class="dropdown_category_list">
+                        <span class="caption-1"><strong>Explore Categories</strong></span>
+                        <select class="select_blog_category" id="testselectset">
+                            <option value="default">Explore Categories</option><option value="https://www.cuelogic.com/category/product-development">Product Development</option><option value="https://www.cuelogic.com/category/devops">DevOps</option><option value="https://www.cuelogic.com/category/cloud">Cloud</option><option value="https://www.cuelogic.com/category/big-data">Big Data</option><option value="https://www.cuelogic.com/category/ai">AI</option><option value="https://www.cuelogic.com/category/iot">IoT</option><option value="https://www.cuelogic.com/category/digital-transformation">Digital Transformation</option><option value="https://www.cuelogic.com/category/processes">Processes</option><option value="https://www.cuelogic.com/category/quality-engineering">Quality Engineering</option><option value="https://www.cuelogic.com/category/cyber-security">Cyber Security</option><option value="https://www.cuelogic.com/category/blockchain">Blockchain</option><option value="https://www.cuelogic.com/category/consulting">Consulting</option><option value="https://www.cuelogic.com/category/culture">Culture</option><option value="https://www.cuelogic.com/category/teams">Teams</option></select>
+                    </div></div>
+            			<a class="underline-text" href="/blog">Go Back to Main Page<span style="font-size: 15px; font-weight: 100;">❯</span></a>
+
+					
+
+
+					 
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	
+<div class="tag_and share_section_content">
+	<div class="content_withsidebar_tag">
+		<p class="tag_title">Tag</p>
+		<span class="post_tag">
+							   <a href="https://www.cuelogic.com/tag/python">python</a>
+				    				   <a href="https://www.cuelogic.com/tag/machine-learning">Machine Learning</a>
+				    				   <a href="https://www.cuelogic.com/tag/artificial-intelligence">Artificial Intelligence</a>
+				    				   <a href="https://www.cuelogic.com/tag/pattern-recognition">Pattern Recognition</a>
+				    				   <a href="https://www.cuelogic.com/tag/ai-applications">AI Applications</a>
+				    				   <a href="https://www.cuelogic.com/tag/ai-programming">AI Programming</a>
+				    				   <a href="https://www.cuelogic.com/tag/python-libraries">Python Libraries</a>
+				    				   <a href="https://www.cuelogic.com/tag/jpython">JPython</a>
+				    				   <a href="https://www.cuelogic.com/tag/nltk">NLTK</a>
+				    				   <a href="https://www.cuelogic.com/tag/nueral-networks">Nueral Networks</a>
+				    		</span>	
+	</div>
+	<div class="content_withsidebar_bottom_share_icon">
+				<div class="wplogout-social-wrapper">
+			<p class="share_title share_vai">Share This Blog</p>
+			<a class="wplogout-social-sharing wplogout-social-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.cuelogic.com%2Fblog%2Frole-of-python-in-artificial-intelligence" target="_blank" rel="nofollow"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2025%2020'%3E%3C/svg%3E" alt="facebook" width="25" height="20" data-lazy-src="https://www.cuelogic.com/wp-content/uploads/2021/06/facebook_1.svg"><noscript><img src="https://www.cuelogic.com/wp-content/uploads/2021/06/facebook_1.svg" alt="facebook" width="25" height="20"></noscript></a>
+			<a class="wplogout-social-sharing wplogout-social-twitter" href="https://twitter.com/intent/tweet?text=Role+of+Python+in+Artificial+Intelligence+%28AI%29&amp;url=https%3A%2F%2Fwww.cuelogic.com%2Fblog%2Frole-of-python-in-artificial-intelligence&amp;via=wplogout" target="_blank" rel="nofollow"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2025%2020'%3E%3C/svg%3E" alt="twitter" width="25" height="20" data-lazy-src="https://www.cuelogic.com/wp-content/uploads/2021/06/twitter_1.svg"><noscript><img src="https://www.cuelogic.com/wp-content/uploads/2021/06/twitter_1.svg" alt="twitter" width="25" height="20"></noscript></a>
+			
+			<a class="wplogout-social-sharing wplogout-social-linkedin" href="https://www.linkedin.com/shareArticle?url=https%3A%2F%2Fwww.cuelogic.com%2Fblog%2Frole-of-python-in-artificial-intelligence&amp;title=Role+of+Python+in+Artificial+Intelligence+%28AI%29&amp;mini=true" target="_blank" rel="nofollow"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2025%2020'%3E%3C/svg%3E" alt="linkidin" width="25" height="20" data-lazy-src="https://www.cuelogic.com/wp-content/uploads/2021/06/linkedin_1.svg"><noscript><img src="https://www.cuelogic.com/wp-content/uploads/2021/06/linkedin_1.svg" alt="linkidin" width="25" height="20"></noscript></a>
+		</div>
+	</div>
+</div>	
+
+<!-- Model -->
+<div id="ouibounce-modal">
+  <div class="underlay"></div>
+  <div class="modal">
+    <span class="cross">x</span>
+    <div class="modal-title">
+      <h2>Have a tech or business challenge?<br> We can help!</h2>
+    </div>
+
+    <div class="modal-body">
+    	<div role="form" class="wpcf7" id="wpcf7-f7893-o1" lang="en-US" dir="ltr">
+<div class="screen-reader-response"><p role="status" aria-live="polite" aria-atomic="true"></p> <ul></ul></div>
+<form action="/blog/role-of-python-in-artificial-intelligence#wpcf7-f7893-o1" method="post" class="wpcf7-form init" novalidate="novalidate" data-status="init">
+<div style="display: none;">
+<input type="hidden" name="_wpcf7" value="7893" />
+<input type="hidden" name="_wpcf7_version" value="5.5.3" />
+<input type="hidden" name="_wpcf7_locale" value="en_US" />
+<input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f7893-o1" />
+<input type="hidden" name="_wpcf7_container_post" value="0" />
+<input type="hidden" name="_wpcf7_posted_data_hash" value="" />
+<input type="hidden" name="_wpcf7_recaptcha_response" value="" />
+</div>
+<div class="popup_main_row">
+<div class="inner-coomen popup_main_name"> <span class="wpcf7-form-control-wrap your-name"><input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Name*" /></span> </div>
+<div class="inner-coomen  popup_main_email"> <span class="wpcf7-form-control-wrap your-email"><input type="email" name="your-email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false" placeholder="Email*" /></span> </div>
+<div class="inner-coomen  popup_main_subject"> <span class="wpcf7-form-control-wrap company"><input type="text" name="company" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Company*" /></span> </div>
+<div class="inner-coomen  popup_main_messgae"> <span class="wpcf7-form-control-wrap your-message"><textarea name="your-message" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea" aria-invalid="false" placeholder="Message*"></textarea></span> </div>
+<p><span id="wpcf7-61dea2425a1b1-wrapper" class="wpcf7-form-control-wrap honeypot-904-wrap" style="display:none !important; visibility:hidden !important;"><label for="honeypot-intent" class="hp-message">Please leave this field empty.</label><input id="honeypot-intent"  class="wpcf7-form-control wpcf7-text" type="text" name="honeypot-904" value="" size="40" tabindex="-1" autocomplete="new-password" /></span></p>
+<input type="hidden" name="URL" value="" class="wpcf7-form-control wpcf7-hidden urlField" id="urlField" />
+<span class="wpcf7-form-control-wrap recaptcha"><span data-sitekey="6LfB_jUaAAAAAP1e1-4jvqhGLO1ekLse8C6-LMsV" class="wpcf7-form-control g-recaptcha wpcf7-recaptcha"></span>
+<noscript>
+	<div class="grecaptcha-noscript">
+		<iframe src="https://www.google.com/recaptcha/api/fallback?k=6LfB_jUaAAAAAP1e1-4jvqhGLO1ekLse8C6-LMsV" frameborder="0" scrolling="no" width="310" height="430">
+		</iframe>
+		<textarea name="g-recaptcha-response" rows="3" cols="40" placeholder="reCaptcha Response Here">
+		</textarea>
+	</div>
+</noscript>
+</span>
+<div class="popup_main_row banner-btn"><input type="submit" value="Submit" class="wpcf7-form-control has-spinner wpcf7-submit" id="subscribe-intentBtn" /></div>
+</div>
+<p style="display: none !important;"><label>&#916;<textarea name="_wpcf7_ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js" name="_wpcf7_ak_js" value="56"/><script type="rocketlazyloadscript">document.getElementById( "ak_js" ).setAttribute( "value", ( new Date() ).getTime() );</script></p><div class="wpcf7-response-output" aria-hidden="true"></div></form></div>         
+    </div>
+
+    <div class="modal-footer">
+      
+    </div>
+  </div>
+</div>
+
+
+
+	</div>
+</div>
+
+<div id="casestudyModal" class="case-study-modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="case-study-close">&times;</span>
+    <div class="contact-form-custom-7">
+    	<div class="contact-form-custom-inner">
+    		<p class="cs-modal-title"><span class="case-title">Request your Case Study</span></p>
+   			<div role="form" class="wpcf7" id="wpcf7-f199-o2" lang="en-US" dir="ltr">
+<div class="screen-reader-response"><p role="status" aria-live="polite" aria-atomic="true"></p> <ul></ul></div>
+<form action="/blog/role-of-python-in-artificial-intelligence#wpcf7-f199-o2" method="post" class="wpcf7-form init" novalidate="novalidate" data-status="init">
+<div style="display: none;">
+<input type="hidden" name="_wpcf7" value="199" />
+<input type="hidden" name="_wpcf7_version" value="5.5.3" />
+<input type="hidden" name="_wpcf7_locale" value="en_US" />
+<input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f199-o2" />
+<input type="hidden" name="_wpcf7_container_post" value="0" />
+<input type="hidden" name="_wpcf7_posted_data_hash" value="" />
+<input type="hidden" name="_wpcf7_recaptcha_response" value="" />
+</div>
+<div class="cases-tudy-form">
+<label> Your Name<br />
+    <span class="wpcf7-form-control-wrap your-name"><input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" /></span> </label></p>
+<p><label> Your Email<br />
+    <span class="wpcf7-form-control-wrap your-email"><input type="email" name="your-email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false" /></span> </label></p>
+<p><span id="wpcf7-61dea2425aa72-wrapper" class="wpcf7-form-control-wrap honeypot-312-wrap" style="display:none !important; visibility:hidden !important;"><label for="honeypot-312" class="hp-message">Please leave this field empty.</label><input id="honeypot-312"  class="wpcf7-form-control wpcf7-text" type="text" name="honeypot-312" value="" size="40" tabindex="-1" autocomplete="new-password" /></span></p>
+<input type="hidden" name="case-studies" value="" class="wpcf7-form-control wpcf7-hidden" />
+<div class="submit-margin banner-btn">
+<span id="case-submit"><input type="submit" value="Download Case Study" class="wpcf7-form-control has-spinner wpcf7-submit" /></span></p>
+</div>
+</div>
+<p style="display: none !important;"><label>&#916;<textarea name="_wpcf7_ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js" name="_wpcf7_ak_js" value="188"/><script type="rocketlazyloadscript">document.getElementById( "ak_js" ).setAttribute( "value", ( new Date() ).getTime() );</script></p><div class="wpcf7-response-output" aria-hidden="true"></div></form></div>		</div>
+   </div>
+  </div>
+
+</div>
+<div class="hidden" id="cookie-banner">
+    <div>
+         <span>
+                By continuing to use this website, you consent to the use of cookies in accordance with our <a style="color:#fff;font-weight:bold;text-decoration:underline" href="https://www.cuelogic.com/privacy-policy" target="_blank">Cookie Policy.</a>
+         </span>
+         <span id="consent-cookies">
+                X
+         </span>
+    </div>
+</div>
+
+<div class="site-footer">
+	<div class="gb-container gb-container-ec1951d0 people-read"><div class="gb-inside-container">
+
+<h2 class="gb-headline gb-headline-bccc5c31 gb-headline-text heading-h3"><strong>People Also Read</strong></h2>
+
+
+<div class="related_post_contaner"><div class="blog_posts_row"><div class="blog_posts_column">
+                        <div class="blog_box_elements_blogs">
+                            <div class="blog_category"><p class="category-name"></p></div>
+                            <div class="blog_blogs_title"><a href=https://www.cuelogic.com/blog/ai-based-security-systems><p>Ethical Bias In AI-Based Security Systems: The Big Data Disconnect</p></a></div>
+                            <div class="border-bottem"></div>
+                            <div class="blog_read_time">8 Mins Read</div>
+                        </div>
+                    </div>
+                        <div class="blog_posts_column">
+                        <div class="blog_box_elements_blogs">
+                            <div class="blog_category"><p class="category-name"></p></div>
+                            <div class="blog_blogs_title"><a href=https://www.cuelogic.com/blog/ai-optimism-and-talent><p>AI Optimism And The Race For Talent</p></a></div>
+                            <div class="border-bottem"></div>
+                            <div class="blog_read_time">8 Mins Read</div>
+                        </div>
+                    </div>
+                        <div class="blog_posts_column">
+                        <div class="blog_box_elements_blogs">
+                            <div class="blog_category"><p class="category-name">Machine Learning</p></div>
+                            <div class="blog_blogs_title"><a href=https://www.cuelogic.com/blog/machine-learning-for-healthcare><p>Machine Learning to revolutionize the Growing Electronic Health Records</p></a></div>
+                            <div class="border-bottem"></div>
+                            <div class="blog_read_time">10 Mins Read</div>
+                        </div>
+                    </div>
+                        </div></div>
+
+</div></div>
+
+<div class="gb-container gb-container-d7f489da subscribe_section"><div class="gb-inside-container">
+
+<p class="gb-headline gb-headline-49656733 gb-headline-text heading-h2">Subscribe to our Blog</p>
+
+
+
+<p class="gb-headline gb-headline-a4bf4afb gb-headline-text heading-h4">Subscribe to our newsletter to receive the latest thought leadership <br>by Cuelogic experts, delivered straight to your inbox!<br></p>
+
+
+
+<div class="wp-block-contact-form-7-contact-form-selector subscrption_form"><div role="form" class="wpcf7" id="wpcf7-f1811-o3" lang="en-US" dir="ltr">
+<div class="screen-reader-response"><p role="status" aria-live="polite" aria-atomic="true"></p> <ul></ul></div>
+<form action="/blog/role-of-python-in-artificial-intelligence#wpcf7-f1811-o3" method="post" class="wpcf7-form init" novalidate="novalidate" data-status="init">
+<div style="display: none;">
+<input type="hidden" name="_wpcf7" value="1811" />
+<input type="hidden" name="_wpcf7_version" value="5.5.3" />
+<input type="hidden" name="_wpcf7_locale" value="en_US" />
+<input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f1811-o3" />
+<input type="hidden" name="_wpcf7_container_post" value="0" />
+<input type="hidden" name="_wpcf7_posted_data_hash" value="" />
+<input type="hidden" name="_wpcf7_recaptcha_response" value="" />
+</div>
+<div class="main_subcription_form">
+<div class="new-email">
+<span class="wpcf7-form-control-wrap your-email"><input type="email" name="your-email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email form-control" aria-required="true" aria-invalid="false" placeholder="Email address" /></span>
+</div>
+<p><span id="wpcf7-61dea2425cb63-wrapper" class="wpcf7-form-control-wrap honeypot-233-wrap" style="display:none !important; visibility:hidden !important;"><label for="honeypot-subscribe" class="hp-message">Please leave this field empty.</label><input id="honeypot-subscribe"  class="wpcf7-form-control wpcf7-text" type="text" name="honeypot-233" value="" size="40" tabindex="-1" autocomplete="new-password" /></span></p>
+<input type="hidden" name="URL" value="" class="wpcf7-form-control wpcf7-hidden urlField" />
+<div class="custom-submit"><input type="submit" value="Subscribe Now" class="wpcf7-form-control has-spinner wpcf7-submit" id="subscribe-btn" /></div>
+</div>
+<p style="display: none !important;"><label>&#916;<textarea name="_wpcf7_ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js" name="_wpcf7_ak_js" value="126"/><script type="rocketlazyloadscript">document.getElementById( "ak_js" ).setAttribute( "value", ( new Date() ).getTime() );</script></p><div class="wpcf7-response-output" aria-hidden="true"></div></form></div></div>
+
+</div></div><div class="gb-container gb-container-60591a2e"><div class="gb-inside-container">
+<div class="gb-grid-wrapper gb-grid-wrapper-c24a1e31">
+<div class="gb-grid-column gb-grid-column-7ceedfb1"><div class="gb-container gb-container-7ceedfb1"><div class="gb-inside-container">
+
+<p class="gb-headline gb-headline-fc6b9c8d gb-headline-text heading-h4"><strong>Services</strong></p>
+
+
+
+<p class="gb-headline gb-headline-7699df72 gb-headline-text caption-4"><strong><strong>Product Engineering</strong></strong></p>
+
+
+
+<ul id="menu-1-4469176" class="caption-2 has-white-color has-text-color"><li><a href="/product-development">Product Development</a></li><li><a href="/ux-consulting">UX Consulting</a></li><li><a href="/app-development-services">Application Development</a></li><li><a href="/application-modernization">Application Modernization</a></li><li><a href="/quality-assurance-services">Quality Assurance Services</a></li></ul>
+
+
+
+<p class="gb-headline gb-headline-8726084d gb-headline-text caption-4"><strong><strong><strong>Data &amp; Machine Learning</strong></strong></strong></p>
+
+
+
+<ul id="menu-1-4d5e281" class="caption-2"><li><a href="/big-data-services">Big Data Services</a></li><li><a href="/ai-consulting">AI Consulting</a></li></ul>
+
+
+
+<p class="gb-headline gb-headline-90c602b1 gb-headline-text caption-4"><strong><strong><strong><a href="/innovation-consulting">Innovation Lab as a Service</a></strong></strong></strong></p>
+
+
+
+<p class="gb-headline gb-headline-91d9c415 gb-headline-text caption-4"><strong><strong><strong><a href="/cybersecurity-services">Cybersecurity Services</a></strong></strong></strong></p>
+
+
+
+<p class="gb-headline gb-headline-1b99939f gb-headline-text caption-4"><strong><strong><strong><a href="/healthcare-it-services">Healthcare IT Solutions</a></strong></strong></strong></p>
+
+</div></div></div>
+
+<div class="gb-grid-column gb-grid-column-e9d33b79"><div class="gb-container gb-container-e9d33b79"><div class="gb-inside-container">
+
+<p class="gb-headline gb-headline-63324631 gb-headline-text caption-4"><strong><strong><strong><strong><strong><strong><strong>Cloud Engineering</strong></strong></strong></strong></strong></strong></strong></p>
+
+
+
+<ul id="menu-1-083afec" class="caption-2"><li><a href="/cloud-services">Cloud Services</a></li><li><a href="/devops-services">DevOps Services</a></li><li><a href="/cloud-migration">Cloud Migration</a></li><li><a href="/cloud-optimization">Cloud Optimization</a></li><li><a href="/cloud-computing-services">Cloud Computing Services</a></li><li><a href="/kubernetes-consulting-services">Kubernetes Consulting Services</a></li></ul>
+
+
+
+<p class="gb-headline gb-headline-87576675 gb-headline-text caption-4"><strong><strong><strong><strong><strong>Internet of Things</strong></strong></strong></strong></strong></p>
+
+
+
+<ul id="menu-1-b24597d" class="caption-2 has-white-color has-text-color"><li><a href="/iot-consulting">IoT Consulting</a></li><li><a href="/iot-app-development">IoT App Development</a></li></ul>
+
+
+
+<p class="gb-headline gb-headline-297eda6b gb-headline-text heading-h4"><strong>Company</strong></p>
+
+
+
+<ul id="menu-1-7bf6b65" class="caption-2"><li><a href="/about">About</a></li><li><a href="/careers/culture">Culture</a></li><li><a href="/careers/current-openings">Current Openings</a></li></ul>
+
+</div></div></div>
+
+<div class="gb-grid-column gb-grid-column-267c8b8c"><div class="gb-container gb-container-267c8b8c"><div class="gb-inside-container">
+
+<p class="gb-headline gb-headline-efcb981f gb-headline-text heading-h4"><strong>We are Global</strong></p>
+
+
+
+<p>India&nbsp; | &nbsp;USA&nbsp; | Australia</p>
+
+
+
+<p class="gb-headline gb-headline-11395d9a gb-headline-text heading-h4"><strong>We are Social</strong></p>
+
+
+
+<ul class="wp-block-social-links has-icon-color has-icon-background-color social-icons"><li style="color: #ffffff; background-color: #253447; " class="wp-social-link wp-social-link-facebook wp-block-social-link"><a href="https://www.facebook.com/cuelogictechnologies" aria-label="Facebook: https://www.facebook.com/cuelogictechnologies" rel="noopener nofollow" target="_blank" class="wp-block-social-link-anchor"> <svg width="24" height="24" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false"><path d="M12 2C6.5 2 2 6.5 2 12c0 5 3.7 9.1 8.4 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7C18.3 21.1 22 17 22 12c0-5.5-4.5-10-10-10z"></path></svg></a></li>
+
+<li style="color: #ffffff; background-color: #253447; " class="wp-social-link wp-social-link-twitter wp-block-social-link"><a href="https://twitter.com/Cuelogic" aria-label="Twitter: https://twitter.com/Cuelogic" rel="noopener nofollow" target="_blank" class="wp-block-social-link-anchor"> <svg width="24" height="24" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false"><path d="M22.23,5.924c-0.736,0.326-1.527,0.547-2.357,0.646c0.847-0.508,1.498-1.312,1.804-2.27 c-0.793,0.47-1.671,0.812-2.606,0.996C18.324,4.498,17.257,4,16.077,4c-2.266,0-4.103,1.837-4.103,4.103 c0,0.322,0.036,0.635,0.106,0.935C8.67,8.867,5.647,7.234,3.623,4.751C3.27,5.357,3.067,6.062,3.067,6.814 c0,1.424,0.724,2.679,1.825,3.415c-0.673-0.021-1.305-0.206-1.859-0.513c0,0.017,0,0.034,0,0.052c0,1.988,1.414,3.647,3.292,4.023 c-0.344,0.094-0.707,0.144-1.081,0.144c-0.264,0-0.521-0.026-0.772-0.074c0.522,1.63,2.038,2.816,3.833,2.85 c-1.404,1.1-3.174,1.756-5.096,1.756c-0.331,0-0.658-0.019-0.979-0.057c1.816,1.164,3.973,1.843,6.29,1.843 c7.547,0,11.675-6.252,11.675-11.675c0-0.178-0.004-0.355-0.012-0.531C20.985,7.47,21.68,6.747,22.23,5.924z"></path></svg></a></li>
+
+<li style="color: #ffffff; background-color: #253447; " class="wp-social-link wp-social-link-linkedin wp-block-social-link"><a href="https://www.linkedin.com/company/cuelogic-technologies" aria-label="LinkedIn: https://www.linkedin.com/company/cuelogic-technologies" rel="noopener nofollow" target="_blank" class="wp-block-social-link-anchor"> <svg width="24" height="24" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false"><path d="M19.7,3H4.3C3.582,3,3,3.582,3,4.3v15.4C3,20.418,3.582,21,4.3,21h15.4c0.718,0,1.3-0.582,1.3-1.3V4.3 C21,3.582,20.418,3,19.7,3z M8.339,18.338H5.667v-8.59h2.672V18.338z M7.004,8.574c-0.857,0-1.549-0.694-1.549-1.548 c0-0.855,0.691-1.548,1.549-1.548c0.854,0,1.547,0.694,1.547,1.548C8.551,7.881,7.858,8.574,7.004,8.574z M18.339,18.338h-2.669 v-4.177c0-0.996-0.017-2.278-1.387-2.278c-1.389,0-1.601,1.086-1.601,2.206v4.249h-2.667v-8.59h2.559v1.174h0.037 c0.356-0.675,1.227-1.387,2.526-1.387c2.703,0,3.203,1.779,3.203,4.092V18.338z"></path></svg></a></li>
+
+<li style="color: #ffffff; background-color: #253447; " class="wp-social-link wp-social-link-youtube wp-block-social-link"><a href="https://www.youtube.com/channel/UC9_yVfuYAA5WM878Udgao7w?" aria-label="YouTube: https://www.youtube.com/channel/UC9_yVfuYAA5WM878Udgao7w?" rel="noopener nofollow" target="_blank" class="wp-block-social-link-anchor"> <svg width="24" height="24" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" focusable="false"><path d="M21.8,8.001c0,0-0.195-1.378-0.795-1.985c-0.76-0.797-1.613-0.801-2.004-0.847c-2.799-0.202-6.997-0.202-6.997-0.202 h-0.009c0,0-4.198,0-6.997,0.202C4.608,5.216,3.756,5.22,2.995,6.016C2.395,6.623,2.2,8.001,2.2,8.001S2,9.62,2,11.238v1.517 c0,1.618,0.2,3.237,0.2,3.237s0.195,1.378,0.795,1.985c0.761,0.797,1.76,0.771,2.205,0.855c1.6,0.153,6.8,0.201,6.8,0.201 s4.203-0.006,7.001-0.209c0.391-0.047,1.243-0.051,2.004-0.847c0.6-0.607,0.795-1.985,0.795-1.985s0.2-1.618,0.2-3.237v-1.517 C22,9.62,21.8,8.001,21.8,8.001z M9.935,14.594l-0.001-5.62l5.404,2.82L9.935,14.594z"></path></svg></a></li></ul>
+
+
+
+<p class="gb-headline gb-headline-960f9a15 gb-headline-text heading-h4"><strong>Subscribe to our Newsletter</strong></p>
+
+
+
+<p class="gb-headline gb-headline-ac006321 gb-headline-text caption-4">We don't spam!</p>
+
+
+
+<div class="wp-block-contact-form-7-contact-form-selector footer-subscribe"><div role="form" class="wpcf7" id="wpcf7-f8190-o4" lang="en-US" dir="ltr">
+<div class="screen-reader-response"><p role="status" aria-live="polite" aria-atomic="true"></p> <ul></ul></div>
+<form action="/blog/role-of-python-in-artificial-intelligence#wpcf7-f8190-o4" method="post" class="wpcf7-form init" novalidate="novalidate" data-status="init">
+<div style="display: none;">
+<input type="hidden" name="_wpcf7" value="8190" />
+<input type="hidden" name="_wpcf7_version" value="5.5.3" />
+<input type="hidden" name="_wpcf7_locale" value="en_US" />
+<input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f8190-o4" />
+<input type="hidden" name="_wpcf7_container_post" value="0" />
+<input type="hidden" name="_wpcf7_posted_data_hash" value="" />
+<input type="hidden" name="_wpcf7_recaptcha_response" value="" />
+</div>
+<div class="main_subcription_form">
+<div class="new-email">
+<span class="wpcf7-form-control-wrap your-email"><input type="email" name="your-email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email form-control" aria-required="true" aria-invalid="false" placeholder="Email address" /></span>
+</div>
+<p><span id="wpcf7-61dea2425f35e-wrapper" class="wpcf7-form-control-wrap honeypot-419-wrap" style="display:none !important; visibility:hidden !important;"><label for="honeypot-subscription" class="hp-message">Please leave this field empty.</label><input id="honeypot-subscription"  class="wpcf7-form-control wpcf7-text" type="text" name="honeypot-419" value="" size="40" tabindex="-1" autocomplete="new-password" /></span></p>
+<input type="hidden" name="URL" value="" class="wpcf7-form-control wpcf7-hidden urlField" />
+<div class="custom-submit submit-margin banner-btn"">
+<input type="submit" value="Subscribe Now" class="wpcf7-form-control has-spinner wpcf7-submit" id="subscribe-footerBtn" /></div>
+</div>
+<p style="display: none !important;"><label>&#916;<textarea name="_wpcf7_ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js" name="_wpcf7_ak_js" value="142"/><script type="rocketlazyloadscript">document.getElementById( "ak_js" ).setAttribute( "value", ( new Date() ).getTime() );</script></p><div class="wpcf7-response-output" aria-hidden="true"></div></form></div></div>
+
+</div></div></div>
+
+<div class="gb-grid-column gb-grid-column-80e71481"><div class="gb-container gb-container-80e71481"><div class="gb-inside-container">
+
+<figure class="wp-block-image size-large is-resized"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20189%2049'%3E%3C/svg%3E" alt="Cuelogic" class="wp-image-8593" width="189" height="49" data-lazy-src="https://www.cuelogic.com/wp-content/uploads/2021/06/Cuelogic_White_Logo.svg"/><noscript><img src="https://www.cuelogic.com/wp-content/uploads/2021/06/Cuelogic_White_Logo.svg" alt="Cuelogic" class="wp-image-8593" width="189" height="49"/></noscript></figure>
+
+
+
+<p class="gb-headline gb-headline-dccc250f gb-headline-text caption-4"><a href="/careers/current-openings">We are hiring!</a></p>
+
+
+
+<p class="gb-headline gb-headline-4acc672d gb-headline-text heading-h4"><strong>Blogs</strong></p>
+
+
+<ul class="wp-block-latest-posts__list wp-block-latest-posts"><li><a href="https://www.cuelogic.com/blog/user-centered-design">User-Centered Design &#8211; The Design Process and Tools</a></li>
+<li><a href="https://www.cuelogic.com/blog/cloud-native-security">Cloud-Native Security Benefits and Use Cases</a></li>
+<li><a href="https://www.cuelogic.com/blog/hypothesis-driven-development">Hypothesis-driven Development </a></li>
+<li><a href="https://www.cuelogic.com/blog/software-testing-methodologies">Everything You Need to Know About Software Testing Methodologies</a></li>
+<li><a href="https://www.cuelogic.com/blog/big-data-tools">Top 10 Big Data Tools for 2021!</a></li>
+</ul>
+
+<div class="gb-container gb-container-3dae1bb7"><div class="gb-inside-container">
+
+<figure class="wp-block-image size-large is-resized"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20189%2042'%3E%3C/svg%3E" alt="L&amp;T Company" class="wp-image-8591" width="189" height="42" data-lazy-src="https://www.cuelogic.com/wp-content/uploads/2021/06/LT-White-Logo.svg"/><noscript><img src="https://www.cuelogic.com/wp-content/uploads/2021/06/LT-White-Logo.svg" alt="L&amp;T Company" class="wp-image-8591" width="189" height="42"/></noscript></figure>
+
+</div></div>
+</div></div></div>
+</div>
+</div></div>
+
+<div class="gb-container gb-container-87c62a15"><div class="gb-inside-container">
+<div class="gb-grid-wrapper gb-grid-wrapper-b6944053 copyright-footer">
+<div class="gb-grid-column gb-grid-column-3f703106"><div class="gb-container gb-container-3f703106"><div class="gb-inside-container">
+
+<p class="gb-headline gb-headline-24468253 gb-headline-text caption-2"><a href="/privacy-policy">Privacy Policy</a></p>
+
+</div></div></div>
+
+<div class="gb-grid-column gb-grid-column-4fb28ae4"><div class="gb-container gb-container-4fb28ae4"><div class="gb-inside-container">
+
+<p class="gb-headline gb-headline-306db5ff gb-headline-text caption-2">All Rights Reserved © <a href="https://www.cuelogic.com">Cuelogic 202</a>2</p>
+
+</div></div></div>
+</div>
+</div></div>
+
+
+<div id="case-study-model-popu" class="modal">
+    <p class="modal-title"></p>
+    
+    <div class="modal-body">
+
+    </div>
+            
+    <a href="#" rel="modal:close">Close</a>
+</div>
+
+
+
+<p></p>
+</div>
+
+<script type="rocketlazyloadscript"  id="generate-a11y">!function(){"use strict";if("querySelector"in document&&"addEventListener"in window){var e=document.body;e.addEventListener("mousedown",function(){e.classList.add("using-mouse")}),e.addEventListener("keydown",function(){e.classList.remove("using-mouse")})}}();</script><script type="rocketlazyloadscript" src='https://www.cuelogic.com/wp-content/plugins/gp-premium/menu-plus/functions/js/sticky.min.js?ver=2.1.0' id='generate-sticky-js' defer></script>
+<script type="rocketlazyloadscript" src='https://www.cuelogic.com/wp-includes/js/dist/vendor/regenerator-runtime.min.js?ver=0.13.7' id='regenerator-runtime-js'></script>
+<script type="rocketlazyloadscript" src='https://www.cuelogic.com/wp-includes/js/dist/vendor/wp-polyfill.min.js?ver=3.15.0' id='wp-polyfill-js'></script>
+<script id='contact-form-7-js-extra'>
+var wpcf7 = {"api":{"root":"https:\/\/www.cuelogic.com\/wp-json\/","namespace":"contact-form-7\/v1"},"cached":"1"};
+</script>
+<script type="rocketlazyloadscript" data-minify="1" src='https://www.cuelogic.com/wp-content/cache/min/1/wp-content/plugins/contact-form-7/includes/js/index.js?ver=1641894204' id='contact-form-7-js' defer></script>
+<script id='generate-smooth-scroll-js-extra'>
+var smooth = {"elements":[".smooth-scroll","li.smooth-scroll a"],"duration":"800"};
+</script>
+<script type="rocketlazyloadscript" src='https://www.cuelogic.com/wp-content/plugins/gp-premium/general/js/smooth-scroll.min.js?ver=2.1.0' id='generate-smooth-scroll-js' defer></script>
+<script type="rocketlazyloadscript" id='rocket-browser-checker-js-after'>
+"use strict";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||!1,descriptor.configurable=!0,"value"in descriptor&&(descriptor.writable=!0),Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){return protoProps&&defineProperties(Constructor.prototype,protoProps),staticProps&&defineProperties(Constructor,staticProps),Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor))throw new TypeError("Cannot call a class as a function")}var RocketBrowserCompatibilityChecker=function(){function RocketBrowserCompatibilityChecker(options){_classCallCheck(this,RocketBrowserCompatibilityChecker),this.passiveSupported=!1,this._checkPassiveOption(this),this.options=!!this.passiveSupported&&options}return _createClass(RocketBrowserCompatibilityChecker,[{key:"_checkPassiveOption",value:function(self){try{var options={get passive(){return!(self.passiveSupported=!0)}};window.addEventListener("test",null,options),window.removeEventListener("test",null,options)}catch(err){self.passiveSupported=!1}}},{key:"initRequestIdleCallback",value:function(){!1 in window&&(window.requestIdleCallback=function(cb){var start=Date.now();return setTimeout(function(){cb({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-start))}})},1)}),!1 in window&&(window.cancelIdleCallback=function(id){return clearTimeout(id)})}},{key:"isDataSaverModeOn",value:function(){return"connection"in navigator&&!0===navigator.connection.saveData}},{key:"supportsLinkPrefetch",value:function(){var elem=document.createElement("link");return elem.relList&&elem.relList.supports&&elem.relList.supports("prefetch")&&window.IntersectionObserver&&"isIntersecting"in IntersectionObserverEntry.prototype}},{key:"isSlowConnection",value:function(){return"connection"in navigator&&"effectiveType"in navigator.connection&&("2g"===navigator.connection.effectiveType||"slow-2g"===navigator.connection.effectiveType)}}]),RocketBrowserCompatibilityChecker}();
+</script>
+<script id='rocket-preload-links-js-extra'>
+var RocketPreloadLinksConfig = {"excludeUris":"\/careers\/current-openings|\/(.+\/)?feed\/?.+\/?|\/(?:.+\/)?embed\/|\/(index\\.php\/)?wp\\-json(\/.*|$)|\/wp-admin|\/logout|\/wp-login.php","usesTrailingSlash":"","imageExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif","fileExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|php|pdf|html|htm","siteUrl":"https:\/\/www.cuelogic.com","onHoverDelay":"100","rateThrottle":"3"};
+</script>
+<script type="rocketlazyloadscript" id='rocket-preload-links-js-after'>
+(function() {
+"use strict";var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},e=function(){function i(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(e,t,n){return t&&i(e.prototype,t),n&&i(e,n),e}}();function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var t=function(){function n(e,t){i(this,n),this.browser=e,this.config=t,this.options=this.browser.options,this.prefetched=new Set,this.eventTime=null,this.threshold=1111,this.numOnHover=0}return e(n,[{key:"init",value:function(){!this.browser.supportsLinkPrefetch()||this.browser.isDataSaverModeOn()||this.browser.isSlowConnection()||(this.regex={excludeUris:RegExp(this.config.excludeUris,"i"),images:RegExp(".("+this.config.imageExt+")$","i"),fileExt:RegExp(".("+this.config.fileExt+")$","i")},this._initListeners(this))}},{key:"_initListeners",value:function(e){-1<this.config.onHoverDelay&&document.addEventListener("mouseover",e.listener.bind(e),e.listenerOptions),document.addEventListener("mousedown",e.listener.bind(e),e.listenerOptions),document.addEventListener("touchstart",e.listener.bind(e),e.listenerOptions)}},{key:"listener",value:function(e){var t=e.target.closest("a"),n=this._prepareUrl(t);if(null!==n)switch(e.type){case"mousedown":case"touchstart":this._addPrefetchLink(n);break;case"mouseover":this._earlyPrefetch(t,n,"mouseout")}}},{key:"_earlyPrefetch",value:function(t,e,n){var i=this,r=setTimeout(function(){if(r=null,0===i.numOnHover)setTimeout(function(){return i.numOnHover=0},1e3);else if(i.numOnHover>i.config.rateThrottle)return;i.numOnHover++,i._addPrefetchLink(e)},this.config.onHoverDelay);t.addEventListener(n,function e(){t.removeEventListener(n,e,{passive:!0}),null!==r&&(clearTimeout(r),r=null)},{passive:!0})}},{key:"_addPrefetchLink",value:function(i){return this.prefetched.add(i.href),new Promise(function(e,t){var n=document.createElement("link");n.rel="prefetch",n.href=i.href,n.onload=e,n.onerror=t,document.head.appendChild(n)}).catch(function(){})}},{key:"_prepareUrl",value:function(e){if(null===e||"object"!==(void 0===e?"undefined":r(e))||!1 in e||-1===["http:","https:"].indexOf(e.protocol))return null;var t=e.href.substring(0,this.config.siteUrl.length),n=this._getPathname(e.href,t),i={original:e.href,protocol:e.protocol,origin:t,pathname:n,href:t+n};return this._isLinkOk(i)?i:null}},{key:"_getPathname",value:function(e,t){var n=t?e.substring(this.config.siteUrl.length):e;return n.startsWith("/")||(n="/"+n),this._shouldAddTrailingSlash(n)?n+"/":n}},{key:"_shouldAddTrailingSlash",value:function(e){return this.config.usesTrailingSlash&&!e.endsWith("/")&&!this.regex.fileExt.test(e)}},{key:"_isLinkOk",value:function(e){return null!==e&&"object"===(void 0===e?"undefined":r(e))&&(!this.prefetched.has(e.href)&&e.origin===this.config.siteUrl&&-1===e.href.indexOf("?")&&-1===e.href.indexOf("#")&&!this.regex.excludeUris.test(e.href)&&!this.regex.images.test(e.href))}}],[{key:"run",value:function(){"undefined"!=typeof RocketPreloadLinksConfig&&new n(new RocketBrowserCompatibilityChecker({capture:!0,passive:!0}),RocketPreloadLinksConfig).init()}}]),n}();t.run();
+}());
+</script>
+<script id='custom-js-js-extra'>
+var myAjax = {"ajax_url":"https:\/\/www.cuelogic.com\/wp-admin\/admin-ajax.php"};
+</script>
+<script type="rocketlazyloadscript" data-minify="1" src='https://www.cuelogic.com/wp-content/cache/min/1/wp-content/themes/SaltTheme/assets/js/custom.js?ver=1641894204' id='custom-js-js' defer></script>
+<!--[if lte IE 11]>
+<script data-wpacu-script-handle='generate-classlist' src='https://www.cuelogic.com/wp-content/themes/generatepress/assets/js/classList.min.js?ver=3.1.0' id='generate-classlist-js'></script>
+<![endif]-->
+<script type="rocketlazyloadscript" src='https://www.cuelogic.com/wp-includes/js/comment-reply.min.js?ver=5.8.2' id='comment-reply-js' defer></script>
+<script data-minify="1" src='https://www.cuelogic.com/wp-content/cache/min/1/wp-content/themes/SaltTheme/recaptcha/assets/js/wpcf7-recaptcha-controls.js?ver=1641894212' id='wpcf7-recaptcha-controls-js'></script>
+<script id='google-recaptcha-js-extra'>
+var wpcf7iqfix = {"recaptcha_empty":"Please verify that you are not a robot.","response_err":"wpcf7-recaptcha: Could not verify reCaptcha response."};
+</script>
+<script src='https://www.google.com/recaptcha/api.js?hl=en_US&#038;onload=recaptchaCallback&#038;render=explicit&#038;ver=2.0' id='google-recaptcha-js'></script>
+
+<script type="rocketlazyloadscript" data-minify="1" src='https://www.cuelogic.com/wp-content/cache/min/1/wp-content/uploads/custom-css-js/8333.js?ver=1641894204' defer></script>
+
+<script type="rocketlazyloadscript" data-minify="1" src='https://www.cuelogic.com/wp-content/cache/min/1/wp-content/uploads/custom-css-js/89.js?ver=1641894204' defer></script>
+
+<!-- This site is optimized with Phil Singleton's WP SEO Structured Data Plugin v2.7.1 - https://kcseopro.com/wordpress-seo-structured-data-schema-plugin/ -->
+
+<!-- / WP SEO Structured Data Plugin. -->
+
+<script>window.lazyLoadOptions={elements_selector:"img[data-lazy-src],.rocket-lazyload,iframe[data-lazy-src]",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,callback_loaded:function(element){if(element.tagName==="IFRAME"&&element.dataset.rocketLazyload=="fitvidscompatible"){if(element.classList.contains("lazyloaded")){if(typeof window.jQuery!="undefined"){if(jQuery.fn.fitVids){jQuery(element).parent().fitVids()}}}}}};window.addEventListener('LazyLoad::Initialized',function(e){var lazyLoadInstance=e.detail.instance;if(window.MutationObserver){var observer=new MutationObserver(function(mutations){var image_count=0;var iframe_count=0;var rocketlazy_count=0;mutations.forEach(function(mutation){for(i=0;i<mutation.addedNodes.length;i++){if(typeof mutation.addedNodes[i].getElementsByTagName!=='function'){continue}
+if(typeof mutation.addedNodes[i].getElementsByClassName!=='function'){continue}
+images=mutation.addedNodes[i].getElementsByTagName('img');is_image=mutation.addedNodes[i].tagName=="IMG";iframes=mutation.addedNodes[i].getElementsByTagName('iframe');is_iframe=mutation.addedNodes[i].tagName=="IFRAME";rocket_lazy=mutation.addedNodes[i].getElementsByClassName('rocket-lazyload');image_count+=images.length;iframe_count+=iframes.length;rocketlazy_count+=rocket_lazy.length;if(is_image){image_count+=1}
+if(is_iframe){iframe_count+=1}}});if(image_count>0||iframe_count>0||rocketlazy_count>0){lazyLoadInstance.update()}});var b=document.getElementsByTagName("body")[0];var config={childList:!0,subtree:!0};observer.observe(b,config)}},!1)</script><script data-no-minify="1" async src="https://www.cuelogic.com/wp-content/plugins/wp-rocket/assets/js/lazyload/16.1/lazyload.min.js"></script><script>function lazyLoadThumb(e){var t='<img loading="lazy" data-lazy-src="https://i.ytimg.com/vi/ID/hqdefault.jpg" alt="" width="480" height="360"><noscript><img src="https://i.ytimg.com/vi/ID/hqdefault.jpg" alt="" width="480" height="360"></noscript>',a='<div class="play"></div>';return t.replace("ID",e)+a}function lazyLoadYoutubeIframe(){var e=document.createElement("iframe"),t="ID?autoplay=1";t+=0===this.dataset.query.length?'':'&'+this.dataset.query;e.setAttribute("src",t.replace("ID",this.dataset.src)),e.setAttribute("frameborder","0"),e.setAttribute("allowfullscreen","1"),e.setAttribute("allow", "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"),this.parentNode.replaceChild(e,this)}document.addEventListener("DOMContentLoaded",function(){var e,t,a=document.getElementsByClassName("rll-youtube-player");for(t=0;t<a.length;t++)e=document.createElement("div"),e.setAttribute("data-id",a[t].dataset.id),e.setAttribute("data-query", a[t].dataset.query),e.setAttribute("data-src", a[t].dataset.src),e.innerHTML=lazyLoadThumb(a[t].dataset.id),e.onclick=lazyLoadYoutubeIframe,a[t].appendChild(e)});</script>
+<script type="rocketlazyloadscript">"use strict";var wprRemoveCPCSS=function wprRemoveCPCSS(){var elem;document.querySelector('link[data-rocket-async="style"][rel="preload"]')?setTimeout(wprRemoveCPCSS,200):(elem=document.getElementById("rocket-critical-css"))&&"remove"in elem&&elem.remove()};window.addEventListener?window.addEventListener("load",wprRemoveCPCSS):window.attachEvent&&window.attachEvent("onload",wprRemoveCPCSS);</script><noscript><link rel="stylesheet" href="https://www.cuelogic.com/wp-content/cache/min/1/456f5eb35dc30c885e666d35e8566c3a.css" media="all" data-minify="1" /></noscript></body>
+</html>
+<!-- This website is like a Rocket, isn't it? Performance optimized by WP Rocket. Learn more: https://wp-rocket.me - Debug: cached@1641980482 -->
